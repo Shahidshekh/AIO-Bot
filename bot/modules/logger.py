@@ -8,7 +8,7 @@ logging.basicConfig(
     datefmt="%d-%b-%y %H:%M:%S",
     handlers=[
         logging.FileHandler(
-            filename="/home/shahid/Desktop/log.txt",
+            filename="./log.txt",
             mode='w'
         ),
         logging.StreamHandler(sys.stdout)
