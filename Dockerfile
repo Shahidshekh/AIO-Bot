@@ -5,7 +5,7 @@ RUN chmod 777 /usr/src/app
 
 
 COPY requirements.txt .
-RUN pip3 install -U -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 COPY . .
 
