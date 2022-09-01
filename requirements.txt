@@ -1,0 +1,11 @@
+pyrogram
+tgcrypto
+aria2p
+asyncio
+python-dotenv
+aiohttp
+lxml
+requests
+Pillow
+gunicorn
+pyromod
