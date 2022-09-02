@@ -18,6 +18,7 @@ async def cb(app, update: CallbackQuery):
     message = update.message
     user_id = update.from_user.id
     directory = f"./extracted/{user_id}/"
+    dl_directory = f"./Download/{user_id}/"
     try:
         dir_contents = os.listdir(directory)
         contents = sorted(dir_contents)
@@ -117,7 +118,8 @@ async def upload_dir(directory, message):
         )
     await msg.delete()
     try:
-        rmtree(directory)
+        await clean_all(dl_directory)
+        await clean_all(directory)
     except Exception:
         pass
 
@@ -159,3 +161,11 @@ def remove_user(user_id):
                 fd.write(line)
         fd.close()
         LOGGER.info(f"removed {user_id}")
+        
+
+async def clean_all(dl_loc):
+    LOGGER.info("Cleaning...")
+    try:
+        rmtree(dl_loc)
+    except Exception as e:
+        pass
