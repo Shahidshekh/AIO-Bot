@@ -17,7 +17,7 @@ class Extract:
                 LOGGER.info("created dirs")
             except:
                 pass
-        command = f"7z x -o\"{output_dir}\" \"{av_path}\" -y"
+        command = f"7z e -o\"{output_dir}\" \"{av_path}\" -y"
         final = await asyncio.create_subprocess_shell(
             command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
         )
