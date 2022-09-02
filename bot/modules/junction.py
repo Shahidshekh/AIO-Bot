@@ -19,6 +19,11 @@ async def incoming_func(app, message):
     download_location = f"/usr/src/app/Download/{user_id}/"
     ext_location = f"/usr/src/app/extracted/{user_id}/"
     download = Downloader(app, message, custom_name)
+    c = mess.split("|")
+    try:
+        new_name = c[1]
+    except:
+        new_name = ""
 
     if mess:
         res = user_validation(user_id, message)
@@ -50,7 +55,12 @@ async def incoming_func(app, message):
                 else:
                     if command.endswith('extract'):
                         await download.extractit(file_name, ext_location)
+                        
                     else:
+                        if new_name != "":
+                            os.rename(f"{download_location}{file_name}, f"{download_location}{new_name}")
+                            file_name = new_name
+                                      
                         msg = await message.reply("**Trying to upload...**")
                         await asyncio.sleep(3)
                         prog = Progress(msg, file_name, st)
