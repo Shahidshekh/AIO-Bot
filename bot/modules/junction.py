@@ -34,7 +34,7 @@ async def incoming_func(app, message):
                     prog = Progress(msg, file_name, st)
                     files = os.listdir(download_location)
                     LOGGER.info(files)
-                    download.upload(
+                    await download.upload(
                         file_name,
                         msg,
                         prog.up_progress
@@ -55,7 +55,7 @@ async def incoming_func(app, message):
                         await asyncio.sleep(3)
                         prog = Progress(msg, file_name, st)
                         try:
-                            download.upload(
+                            await download.upload(
                                 file_name,
                                 msg,
                                 prog.up_progress
