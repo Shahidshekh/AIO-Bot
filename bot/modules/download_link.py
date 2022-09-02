@@ -78,8 +78,7 @@ async def progress_aria(aria2, gid, event, user):
 
         except FloodWait as fd:
             LOGGER.error(fd)
-            time.sleep(fd.x)
-            return
+            sleep(fd.x)
 
         except Exception as e:
             LOGGER.error(e)
