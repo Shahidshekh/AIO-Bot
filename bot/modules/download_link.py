@@ -66,6 +66,8 @@ async def progress_aria(aria2, gid, event, user):
                         await event.edit(smsg, reply_markup=cancel)
                     except MessageNotModified:
                         await asyncio.sleep(5)
+                    except FloodWait as fd:
+                        await asyncio.sleep(fd.x)
             else:
                 await event.edit(f"`Downloaded` : \n`{file.name}` 😎️\n`Total Size` : ({file.total_length_string()})")
                 LOGGER.info(f"Downloaded :{file.name} Size : {file.total_length_string()}")
