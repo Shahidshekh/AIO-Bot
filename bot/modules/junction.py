@@ -32,7 +32,9 @@ async def incoming_func(app, message):
                 else:
                     msg = await message.reply("**Trying to upload...**")
                     prog = Progress(msg, file_name, st)
-                    await download.upload(
+                    files = os.listdir(download_location)
+                    LOGGER.info(files)
+                    download.upload(
                         file_name,
                         msg,
                         prog.up_progress
