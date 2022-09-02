@@ -73,7 +73,7 @@ class Downloader:
         else:
             await self.msg.reply_text("File Corrupted", quote=True)
 
-    async def upload(self, local_file_name, message, progress):
+    def upload(self, local_file_name, message, progress):
         file_name = os.path.basename(local_file_name)
         stats = os.stat(local_file_name)
         size = stats.st_size / (1024 * 1024)
@@ -86,7 +86,7 @@ class Downloader:
                     disable_notification=True,
                     progress=progress
                 )
-                await clean_all(self.download_location)
+                clean_all(self.download_location)
 
             except Exception as e:
                 LOGGER.error(e)
@@ -95,7 +95,7 @@ class Downloader:
             await message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {round(size, 2)}MiB")
             return
 
-async def clean_all(dl_loc):
+def clean_all(dl_loc):
     LOGGER.info("Cleaning...")
     try:
         rmtree(dl_loc)
