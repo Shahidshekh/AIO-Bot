@@ -20,7 +20,12 @@ async def cb(app, update: CallbackQuery):
     directory = f"/usr/src/app/extracted/{user_id}/"
     dl_directory = f"/usr/src/app/Download/{user_id}/"
     try:
-        dir_contents = os.listdir(directory)
+        dir_content = []
+        contents = os.listdir(directory)
+        for fk in contents:
+            if os.path.isfile(f"{directory}{fk}"):
+                dir_contents.append(fk)
+
         contents = sorted(dir_contents)
     except:
         pass
@@ -58,10 +63,11 @@ async def cb(app, update: CallbackQuery):
         await app.answer_callback_query(update.id, text="ok", show_alert=False)
         fi = cb_data.split(" ")
         file_num = fi[1]
-        contents = os.listdir(directory)
+        contents = []
+        dir_contents = os.listdir(directory)
         for fk in contents:
-            if os.path.isfile(fi):
-                contents.append(fi)
+            if os.path.isfile(fk):
+                contents.append(fk)
         contents.sort()
 
         for i, file in enumerate(contents, 1):
