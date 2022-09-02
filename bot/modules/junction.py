@@ -32,8 +32,6 @@ async def incoming_func(app, message):
                 else:
                     msg = await message.reply("**Trying to upload...**")
                     prog = Progress(msg, file_name, st)
-                    files = os.listdir(download_location)
-                    LOGGER.info(files)
                     await download.upload(
                         file_name,
                         msg,
@@ -82,7 +80,6 @@ async def incoming_func(app, message):
 
         elif not res:
             await message.reply("<b>Ongoing Process Found!</b> Please wait until it's complete", quote=True)
-            LOGGER.info("Working ig")
             return
 
     else:
