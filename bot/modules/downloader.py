@@ -79,7 +79,7 @@ class Downloader:
         size = stats.st_size / (1024 * 1024)
         if size < 1950.00:
             try:
-                total = await message.reply_document(
+                total = message.reply_document(
                     document=local_file_name,
                     thumb=None,
                     caption=f"<code>{file_name}</code>",
@@ -92,7 +92,7 @@ class Downloader:
                 LOGGER.error(e)
             return
         else:
-            await message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {round(size, 2)}MiB")
+            message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {round(size, 2)}MiB")
             return
 
 def clean_all(dl_loc):
