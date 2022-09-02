@@ -97,6 +97,8 @@ class Downloader:
 
             except Exception as e:
                 LOGGER.error(e)
+            except FloodWait as fd:
+                await asyncio.sleep(fd.x)
             return
         else:
             message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {round(size, 2)}MiB")

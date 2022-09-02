@@ -8,6 +8,7 @@ import os
 from pyromod import listen
 from bot.modules.download_link import aria_start
 from bot.modules.utils import files_keyboard
+from pyrogram.errors import FloodWait
 
 custom_name = ""
 
@@ -114,11 +115,14 @@ async def upload_dir(directory, message):
         basename = os.path.basename(file)
         file_loc = f"{directory}{basename}"
         prog = Progress(message, basename, start)
-        await upload(
-            local_file_name=file_loc,
-            message=msg,
-            progress=prog.up_progress
-        )
+        try:
+            await upload(
+                local_file_name=file_loc,
+                message=msg,
+                progress=prog.up_progress
+            )
+        except FloodWait as fd:
+            await asyncio.sleep(fd.x)
     await msg.delete()
     try:
       

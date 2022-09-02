@@ -7,6 +7,7 @@ from bot.modules.dl_progress import Progress
 from bot.modules.logger import LOGGER
 from bot.modules.callback import name
 import os
+from bot import authorized_chats
 
 custom_name = ""
 
@@ -19,7 +20,11 @@ async def incoming_func(app, message):
     download_location = f"/usr/src/app/Download/{user_id}/"
     ext_location = f"/usr/src/app/extracted/{user_id}/"
     download = Downloader(app, message, custom_name)
-
+    reso = search(authorized_chats, message.chat.id)
+    if not reso:
+        await message.reply(text="I'm not familiar with this chat...", quote=True)
+        
+         
     if mess:
         res = user_validation(user_id, message)
         if res:
