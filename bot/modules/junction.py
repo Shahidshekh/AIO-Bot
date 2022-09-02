@@ -78,7 +78,7 @@ async def incoming_func(app, message):
         await lol.delete()
         return
 
-    await clean_all(download_location)
+
 
 
 async def set_name(app: client, message):
@@ -101,14 +101,6 @@ async def remove_name(app: client, message):
     await asyncio.sleep(8)
     await m.delete()
     name(custom_name)
-
-
-async def clean_all(dl_loc):
-    LOGGER.info("Cleaning...")
-    try:
-        rmtree(dl_loc)
-    except Exception as e:
-        pass
 
 
 def search(listed, item):
