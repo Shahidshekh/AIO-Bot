@@ -75,6 +75,7 @@ class Downloader:
 
     def upload(self, local_file_name, message, progress):
         file_name = os.path.basename(local_file_name)
+        LOGGER.info(f"uploading : {file_name}")
         stats = os.stat(local_file_name)
         size = stats.st_size / (1024 * 1024)
         if size < 1950.00:
