@@ -39,7 +39,7 @@ async def cb(app, update: CallbackQuery):
         else:
             await app.answer_callback_query(update.id, text="wrong Format! Uploading without Rename", show_alert=False)
 
-        await upload_dir(directory, msg)
+        upload_dir(directory, msg)
         await message.reply("Uploaded Successfully!", quote=True)
 
     elif cb_data == "hellno":
@@ -51,7 +51,7 @@ async def cb(app, update: CallbackQuery):
         msg = await message.edit("Trying To Upload")
         p_msg = await msg.reply("uploading")
         await msg.delete()
-        await upload_dir(directory, p_msg)
+        upload_dir(directory, p_msg)
         await message.reply("Uploaded Successfully!")
 
     elif cb_data.startswith("rename"):
@@ -101,7 +101,7 @@ async def cb(app, update: CallbackQuery):
         remove_user(user_id)
 
 
-async def upload_dir(directory, message):
+def upload_dir(directory, message):
     directory_contents = os.listdir(directory)
     directory_contents.sort()
     start = time()
@@ -111,26 +111,26 @@ async def upload_dir(directory, message):
         basename = os.path.basename(file)
         file_loc = f"{directory}{basename}"
         prog = Progress(message, basename, start)
-        await upload(
+        upload(
             local_file_name=file_loc,
             message=msg,
             progress=prog.up_progress
         )
     await msg.delete()
     try:
-        await clean_all(dl_directory)
-        await clean_all(directory)
+        clean_all(dl_directory)
+        clean_all(directory)
     except Exception:
         pass
 
 
-async def upload(local_file_name, message, progress):
+def upload(local_file_name, message, progress):
     file_name = os.path.basename(local_file_name)
     stats = os.stat(local_file_name)
     size = round((stats.st_size / (1024 * 1024)), 2)
     if size < 1950.00:
         try:
-            total = await message.reply_document(
+            total = message.reply_document(
                 document=local_file_name,
                 thumb=None,
                 caption=f"<code>{file_name}</code>",
@@ -163,7 +163,7 @@ def remove_user(user_id):
         LOGGER.info(f"removed {user_id}")
         
 
-async def clean_all(dl_loc):
+def clean_all(dl_loc):
     LOGGER.info("Cleaning...")
     try:
         rmtree(dl_loc)
