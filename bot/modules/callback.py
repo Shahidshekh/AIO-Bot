@@ -39,7 +39,7 @@ async def cb(app, update: CallbackQuery):
         else:
             await app.answer_callback_query(update.id, text="wrong Format! Uploading without Rename", show_alert=False)
 
-        upload_dir(directory, msg)
+        await upload_dir(directory, msg)
         await message.reply("Uploaded Successfully!", quote=True)
 
     elif cb_data == "hellno":
@@ -51,7 +51,7 @@ async def cb(app, update: CallbackQuery):
         msg = await message.edit("Trying To Upload")
         p_msg = await msg.reply("uploading")
         await msg.delete()
-        upload_dir(directory, p_msg)
+        await upload_dir(directory, p_msg)
         await message.reply("Uploaded Successfully!")
 
     elif cb_data.startswith("rename"):
@@ -101,11 +101,11 @@ async def cb(app, update: CallbackQuery):
         remove_user(user_id)
 
 
-def upload_dir(directory, message):
+async def upload_dir(directory, message):
     directory_contents = os.listdir(directory)
     directory_contents.sort()
     start = time()
-    msg = message.edit("**Uploading...**")
+    msg = await message.edit("**Uploading...**")
 
     for file in directory_contents:
         basename = os.path.basename(file)
@@ -116,7 +116,7 @@ def upload_dir(directory, message):
             message=msg,
             progress=prog.up_progress
         )
-    msg.delete()
+    await msg.delete()
     try:
         clean_all(dl_directory)
         clean_all(directory)
