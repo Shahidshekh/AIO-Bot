@@ -73,7 +73,7 @@ class Downloader:
         else:
             await self.msg.reply_text("File Corrupted", quote=True)
 
-    def upload(self, local_file_name, message, progress):
+    async def upload(self, local_file_name, message, progress):
         file_name = os.path.basename(local_file_name)
         LOGGER.info(f"uploading : {file_name}")
         LOGGER.info(f"path is : {local_file_name}")
@@ -81,7 +81,7 @@ class Downloader:
         size = stats.st_size / (1024 * 1024)
         if size < 1950.00:
             try:
-                total = message.reply_document(
+                total = await message.reply_document(
                     document=local_file_name,
                     thumb=None,
                     caption=f"<code>{file_name}</code>",
