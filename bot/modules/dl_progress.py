@@ -63,6 +63,8 @@ class Progress:
                     f"**Uploading 📤️**\n\n**Name :** <code>{name}</code>\n\n{progress}\n\n**Done :** {humanbytes(current)}\n**Total :** {humanbytes(total)}")
             except MessageNotModified:
                 time.sleep(3.0)
+            except FloodWait as fd:
+                time.sleep(fd.x)
         if percentage == 100:
             time.sleep(3)
             message.edit("🏃️")
