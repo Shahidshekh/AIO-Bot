@@ -3,7 +3,7 @@ FROM archlinux:latest
 WORKDIR /usr/src/app
 RUN chmod 777 /usr/src/app
 
-RUN apt -y update && upgrade
+
 RUN pacman -S --noconfirm python3-pip
 
 COPY requirements.txt .
