@@ -26,7 +26,7 @@ class Downloader:
             await asyncio.sleep(2)
             aria_i = await aria_start()
             done, gid = add_url(aria_i, url, self.download_location)
-            file = await progress_aria(aria_i, gid, msg)
+            file = await progress_aria(aria_i, gid, msg, self.user)
             if file is None:
                 await msg.delete()
                 return False
