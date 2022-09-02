@@ -24,9 +24,9 @@ async def cb(app, update: CallbackQuery):
         contents = os.listdir(directory)
         for fk in contents:
             if os.path.isfile(f"{directory}{fk}"):
-                dir_contents.append(fk)
+                dir_content.append(fk)
 
-        contents = sorted(dir_contents)
+        contents = sorted(dir_content)
     except:
         pass
     if cb_data == "yeah":
@@ -65,7 +65,7 @@ async def cb(app, update: CallbackQuery):
         file_num = fi[1]
         contents = []
         dir_contents = os.listdir(directory)
-        for fk in contents:
+        for fk in dir_contents:
             if os.path.isfile(fk):
                 contents.append(fk)
         contents.sort()
