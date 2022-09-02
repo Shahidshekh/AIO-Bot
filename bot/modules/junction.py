@@ -18,7 +18,7 @@ async def incoming_func(app, message):
     st = time()
     download_location = f"/usr/src/app/Download/{user_id}/"
     ext_location = f"/usr/src/app/extracted/{user_id}/"
-    download = Downloader(app, message, custom_name, url)
+
     c = mess.text.split(" | ")
     try:
         url = c[0]
@@ -26,6 +26,7 @@ async def incoming_func(app, message):
     except:
         url = c
         new_name = ""
+    download = Downloader(app, message, custom_name, url)
 
     if mess:
         res = user_validation(user_id, message)
