@@ -65,7 +65,7 @@ async def progress_aria(aria2, gid, event, user):
                     try:
                         await event.edit(smsg, reply_markup=cancel)
                     except MessageNotModified:
-                        await asyncio.sleep(5)
+                        await asyncio.sleep(15)
                     except FloodWait as fd:
                         await asyncio.sleep(fd.value)
             else:
