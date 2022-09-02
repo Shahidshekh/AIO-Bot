@@ -22,8 +22,8 @@ async def incoming_func(app, message):
     download = Downloader(app, message, custom_name)
     reso = search(authorized_chats, message.chat.id)
     if not reso:
-        await message.reply(text="I'm not familiar with this chat...", quote=True)
-        
+        await message.reply(text="I'm not familiar with this chat...\nPlease Contact @the_fourth_minato for authorization", quote=True)
+        return
          
     if mess:
         res = user_validation(user_id, message)
