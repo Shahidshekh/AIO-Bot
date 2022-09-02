@@ -142,7 +142,7 @@ def upload(local_file_name, message, progress):
             LOGGER.error(e)
         return
     else:
-        await message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {size}MiB")
+        message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {size}MiB")
         return
 
 
