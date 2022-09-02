@@ -119,9 +119,9 @@ def search(listed, item):
 
 
 def user_validation(user_id, msg):
-    if os.path.exists("/home/shahid/Desktop/process/users.txt"):
+    if os.path.exists("./process/users.txt"):
         LOGGER.info("exist")
-        f = open("/home/shahid/Desktop/process/users.txt", mode="r+")
+        f = open("./process/users.txt", mode="r+")
         fr = f.readlines()
         f.close()
         for line in fr:
@@ -135,10 +135,10 @@ def user_validation(user_id, msg):
         return True
     else:
         try:
-            os.mkdir("/home/shahid/Desktop/process")
+            os.mkdir("./process")
         except:
             pass
-        f = open("/home/shahid/Desktop/process/users.txt", mode="x")
+        f = open("./process/users.txt", mode="x")
         f.write(f"{user_id}\n")
         f.close()
         return True
