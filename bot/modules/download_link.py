@@ -90,6 +90,7 @@ def add_url(aria_instance, url, path):
     options = None
     uris = [url]
     LOGGER.info(uris)
+    LOGGER.info(f"path is {path}")
 
     if not os.path.exists(path):
         try:
