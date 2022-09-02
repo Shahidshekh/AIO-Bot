@@ -67,7 +67,7 @@ async def progress_aria(aria2, gid, event, user):
                     except MessageNotModified:
                         await asyncio.sleep(5)
                     except FloodWait as fd:
-                        await asyncio.sleep(fd.x)
+                        await asyncio.sleep(fd.value)
             else:
                 await event.edit(f"`Downloaded` : \n`{file.name}` 😎️\n`Total Size` : ({file.total_length_string()})")
                 LOGGER.info(f"Downloaded :{file.name} Size : {file.total_length_string()}")
@@ -80,7 +80,7 @@ async def progress_aria(aria2, gid, event, user):
 
         except FloodWait as fd:
             LOGGER.error(fd)
-            await asyncio.sleep(fd.x)
+            await asyncio.sleep(fd.value)
 
         except Exception as e:
             LOGGER.error(e)
