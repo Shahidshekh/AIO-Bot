@@ -30,11 +30,12 @@ class Extract:
 async def files_keyboard(directory, message):
     while True:
         try:
-            content = []
-            for fi in os.path.listdir(directory):
+            content = os.path.listdir(directory)
+            contents = []
+            for fi in content:
                 if os.path.isfile(fi):
-                    content.append(fi)
-            contents = sorted(content)
+                    contents.append(fi)
+            contents.sort
             fi_butt = []
         except FileNotFoundError:
             return
