@@ -9,6 +9,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.types import CallbackQuery
 from bot.modules.utils import files_keyboard
 from shutil import rmtree
+from pyrogram.errors import FloodWait
 
 
 class Downloader:
