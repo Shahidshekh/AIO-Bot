@@ -4,7 +4,7 @@ import aria2p
 import sys
 from pyrogram.errors import FloodWait, MessageNotModified
 from time import time
-from .logger import LOGGER
+from bot.modules.logger import LOGGER
 import math
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
@@ -30,7 +30,7 @@ async def aria_start():
     return aria2
 
 
-async def progress_aria(aria2, gid, event):
+async def progress_aria(aria2, gid, event, user):
     cancel_butt = [[InlineKeyboardButton(text="cancel", callback_data=f"cancel {gid}")]]
     cancel = InlineKeyboardMarkup(cancel_butt)
     while True:
@@ -49,6 +49,7 @@ async def progress_aria(aria2, gid, event):
                     LOGGER.error(msg)
                     await asyncio.sleep(5)
                     await event.reply(f"`{msg}`")
+                    remove_user(user)
                     return
                 if file.is_active:
                     percentage = int(file.progress_string(0).split('%')[0])
@@ -106,3 +107,15 @@ def add_url(aria_instance, url, path):
 
     else:
         return True, "" + download.gid + ""
+    
+    
+def remove_user(user_id):
+    # removing proces data
+    with open("./process/users.txt", "r") as f:
+        lines = f.readlines()
+    with open("./process/users.txt", "w") as fd:
+        for line in lines:
+            if line.strip("\n") != f"{user_id}":
+                fd.write(line)
+        fd.close()
+        LOGGER.info(f"removed {user_id}")
