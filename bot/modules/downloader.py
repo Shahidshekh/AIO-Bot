@@ -86,6 +86,7 @@ class Downloader:
                     disable_notification=True,
                     progress=progress
                 )
+                await clean_all(self.download_location)
 
             except Exception as e:
                 LOGGER.error(e)
@@ -94,19 +95,9 @@ class Downloader:
             await message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {round(size, 2)}MiB")
             return
 
-    async def upload_dir(self, directory, message):
-        directory_contents = os.listdir(directory)
-        directory_contents.sort()
-        msg = await message.edit("Trying To Upload...")
-
-        for file in directory_contents:
-            basename = os.path.basename(file)
-            LOGGER.info(basename)
-            file_loc = f"{directory}{basename}"
-            prog = Progress(msg, basename, self.st)
-            await self.upload(
-                local_file_name=file_loc,
-                message=message,
-                progress=prog.up_progress
-            )
-        await msg.delete()
+async def clean_all(dl_loc):
+    LOGGER.info("Cleaning...")
+    try:
+        rmtree(dl_loc)
+    except Exception as e:
+        pass
