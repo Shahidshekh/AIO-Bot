@@ -40,7 +40,7 @@ class Progress:
                 message.edit(
                     f"**Downloading 📥️**\n\n**Name :** <code>{name}</code>\n\n {progress} \n\n**Done :** {humanbytes(current)}\n**Total :** {humanbytes(total)}")
             except FloodWait as fd:
-                time.sleep(fd.x)
+                time.sleep(fd.value)
             except Exception as e:
                 print(e)
         if percentage == 100:
@@ -64,7 +64,7 @@ class Progress:
             except MessageNotModified:
                 time.sleep(3.0)
             except FloodWait as fd:
-                time.sleep(fd.x)
+                time.sleep(fd.value)
         if percentage == 100:
             time.sleep(3)
             message.edit("🏃️")
