@@ -95,7 +95,7 @@ async def cb(app, update: CallbackQuery):
                     "to a Direct Link or Telegram media to download and Upload media from the link to " \
                     "Telegram\n/extract - Reply this command to a Direct Link or Telegram media to extract the file " \
                     "and upload it to Telegram\n/setname - To set a Custom Name to auto rename similarly /rmname " \
-                    "used to remove current Custom Name\n\n**Bot Limitations -\n\nFind it urself**"
+                    "used to remove current Custom Name\n\n**Bot Limitations -\n\nFind it urself**\n\n#TODO - \n**ytdl support\nMulti Rename\nMagnet Support \nGoogle Drive Links Support\nMirror Support**"
         await message.edit(help_text)
 
     elif cb_data.startswith("cancel"):
