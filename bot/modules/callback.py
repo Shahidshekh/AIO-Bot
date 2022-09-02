@@ -17,8 +17,8 @@ async def cb(app, update: CallbackQuery):
     cb_data = update.data
     message = update.message
     user_id = update.from_user.id
-    directory = f"./extracted/{user_id}/"
-    dl_directory = f"./Download/{user_id}/"
+    directory = f"/usr/src/app/extracted/{user_id}/"
+    dl_directory = f"/usr/src/app/Download/{user_id}/"
     try:
         dir_contents = os.listdir(directory)
         contents = sorted(dir_contents)
