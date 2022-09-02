@@ -53,7 +53,7 @@ async def incoming_func(app, message):
                         await asyncio.sleep(3)
                         prog = Progress(msg, file_name, st)
                         try:
-                            await download.upload(
+                            download.upload(
                                 file_name,
                                 msg,
                                 prog.up_progress
