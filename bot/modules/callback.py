@@ -127,7 +127,7 @@ async def upload_dir(directory, message):
         )
     await msg.delete()
     try:
-        clean_all(dl_directory)
+      
         clean_all(directory)
     except Exception:
         pass
