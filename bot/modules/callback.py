@@ -58,7 +58,10 @@ async def cb(app, update: CallbackQuery):
         await app.answer_callback_query(update.id, text="ok", show_alert=False)
         fi = cb_data.split(" ")
         file_num = fi[1]
-        contents = os.listdir(directory)
+        contents = []
+        for fi in os.path.listdir(directory):
+            if os.path.isfile(fi):
+                contents.append(fi)
         contents.sort()
 
         for i, file in enumerate(contents, 1):
