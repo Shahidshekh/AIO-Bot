@@ -20,7 +20,7 @@ async def incoming_func(app, message):
     download_location = f"/usr/src/app/Download/{user_id}/"
     ext_location = f"/usr/src/app/extracted/{user_id}/"
     download = Downloader(app, message, custom_name)
-    reso = search(authorized_chats, message.chat.id)
+    reso = search(authorized_chats, str(message.chat.id))
     if not reso:
         await message.reply(text="I'm not familiar with this chat...\nPlease Contact @the_fourth_minato for authorization", quote=True)
         return
