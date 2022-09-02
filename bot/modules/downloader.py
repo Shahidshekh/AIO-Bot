@@ -8,6 +8,7 @@ from bot.modules.logger import LOGGER
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.types import CallbackQuery
 from bot.modules.utils import files_keyboard
+from shutil import rmtree
 
 
 class Downloader:
