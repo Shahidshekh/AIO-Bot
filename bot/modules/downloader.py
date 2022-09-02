@@ -19,8 +19,8 @@ class Downloader:
         self.user = message.from_user.id
         self.download_location = f"/usr/src/app/Download/{self.user}/"
 
-    async def download_from_link(self):
-        url = self.msg.reply_to_message.text
+    async def download_from_link(self, url):
+
         if url.startswith("http"):
             msg = await self.msg.reply("**Checking...**", quote=True)
             await asyncio.sleep(2)
