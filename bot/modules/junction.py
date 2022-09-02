@@ -59,8 +59,8 @@ async def incoming_func(app, message):
                         
                     else:
                         if new_name != "":
-                            os.rename(f"{download_location}{file_name}", f"{download_location}{new_name}")
-                            file_name = new_name
+                            os.rename(file_name, f"{download_location}{new_name}")
+                            file_name = f"{download_location}{new_name}"
                                       
                         msg = await message.reply("**Trying to upload...**")
                         await asyncio.sleep(3)
