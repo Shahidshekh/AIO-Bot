@@ -129,7 +129,7 @@ def user_validation(user_id, msg):
             if line.strip("\n") == str(user_id):
                 LOGGER.info("user exist")
                 return False
-        fd = open("/home/shahid/Desktop/process/users.txt", mode="w")
+        fd = open("./process/users.txt", mode="w")
         fd.write(f"{user_id}\n")
         fd.close()
         return True
