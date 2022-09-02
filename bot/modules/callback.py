@@ -111,7 +111,7 @@ async def upload_dir(directory, message):
         basename = os.path.basename(file)
         file_loc = f"{directory}{basename}"
         prog = Progress(message, basename, start)
-        upload(
+        await upload(
             local_file_name=file_loc,
             message=msg,
             progress=prog.up_progress
@@ -124,13 +124,13 @@ async def upload_dir(directory, message):
         pass
 
 
-def upload(local_file_name, message, progress):
+async def upload(local_file_name, message, progress):
     file_name = os.path.basename(local_file_name)
     stats = os.stat(local_file_name)
     size = round((stats.st_size / (1024 * 1024)), 2)
     if size < 1950.00:
         try:
-            total = message.reply_document(
+            total = await message.reply_document(
                 document=local_file_name,
                 thumb=None,
                 caption=f"<code>{file_name}</code>",
