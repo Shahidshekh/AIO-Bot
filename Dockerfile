@@ -1,10 +1,7 @@
 FROM ubuntu:20.04
 
-RUN mkdir ./app
-
-RUN chmod 777 ./app
-
-WORKDIR /app
+WORKDIR /usr/src/app
+RUN chmod 777 /usr/src/app
 
 ENV DEBIAN_FRONTEND=noninteractive
 
