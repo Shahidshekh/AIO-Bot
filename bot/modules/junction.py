@@ -16,8 +16,8 @@ async def incoming_func(app, message):
     user_id = message.from_user.id
     mess = message.reply_to_message
     st = time()
-    download_location = f"./Download/{user_id}/"
-    ext_location = f"./extracted/{user_id}/"
+    download_location = f"/usr/src/app/Download/{user_id}/"
+    ext_location = f"/usr/src/app/extracted/{user_id}/"
     download = Downloader(app, message, custom_name)
 
     if mess:
