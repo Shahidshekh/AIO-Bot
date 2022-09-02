@@ -105,7 +105,7 @@ def upload_dir(directory, message):
     directory_contents = os.listdir(directory)
     directory_contents.sort()
     start = time()
-    msg = await message.edit("**Uploading...**")
+    msg = message.edit("**Uploading...**")
 
     for file in directory_contents:
         basename = os.path.basename(file)
@@ -116,7 +116,7 @@ def upload_dir(directory, message):
             message=msg,
             progress=prog.up_progress
         )
-    await msg.delete()
+    msg.delete()
     try:
         clean_all(dl_directory)
         clean_all(directory)
