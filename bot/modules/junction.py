@@ -19,10 +19,12 @@ async def incoming_func(app, message):
     download_location = f"/usr/src/app/Download/{user_id}/"
     ext_location = f"/usr/src/app/extracted/{user_id}/"
     download = Downloader(app, message, custom_name)
-    c = mess.split(" | ")
+    c = mess.text.split(" | ")
     try:
+        url = c[0]
         new_name = c[1]
     except:
+        url = c
         new_name = ""
 
     if mess:
