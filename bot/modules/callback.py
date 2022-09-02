@@ -94,7 +94,7 @@ async def cb(app, update: CallbackQuery):
         help_text = "**Bot Commands -\n\nNote** : Bot is still Under Development..\n\n/leech - Reply this command " \
                     "to a Direct Link or Telegram media to download and Upload media from the link to " \
                     "Telegram\n/extract - Reply this command to a Direct Link or Telegram media to extract the file " \
-                    "and upload it to Telegram\n/setname - To set a Custom Name to auto rename similarly /rmname " \
+                    "and upload it to Telegram\n/setname [Experimental] - To set a Custom Name to auto rename... similarly /rmname " \
                     "used to remove current Custom Name\n\n**Bot Limitations -\n\nFind it urself**\n\n#TODO - \n**ytdl support\nMulti Rename\nMagnet Support \nGoogle Drive Links Support\nMirror Support**"
         await message.edit(help_text)
 
