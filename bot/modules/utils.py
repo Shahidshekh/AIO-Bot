@@ -35,7 +35,7 @@ async def files_keyboard(directory, message):
             for fi in content:
                 if os.path.isfile(f"{directory}{fi}"):
                     contents.append(fi)
-            contents.sort
+            contents.sort()
             fi_butt = []
         except FileNotFoundError:
             return
