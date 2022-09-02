@@ -18,15 +18,7 @@ async def incoming_func(app, message):
     st = time()
     download_location = f"/usr/src/app/Download/{user_id}/"
     ext_location = f"/usr/src/app/extracted/{user_id}/"
-
-    c = mess.text.split(" | ")
-    try:
-        url = c[0]
-        new_name = c[1]
-    except:
-        url = c
-        new_name = ""
-    download = Downloader(app, message, custom_name, url)
+    download = Downloader(app, message, custom_name)
 
     if mess:
         res = user_validation(user_id, message)
@@ -51,8 +43,14 @@ async def incoming_func(app, message):
                     await message.reply("Uploaded Successfully!")
 
             elif mess.text.startswith("http"):
-
-                file_name = await download.download_from_link()
+                try:
+                    c = mess.text.split(" | ")
+                    url = c[0]
+                    new_name = c[1]
+                except:
+                    url = mess.text
+                    new_name = ""
+                file_name = await download.download_from_link(url)
                 if file_name is False:
                     return
                 else:
