@@ -17,7 +17,7 @@ class Downloader:
         self.client = client
         self.st = time()
         self.user = message.from_user.id
-        self.download_location = f"./Download/{self.user}/"
+        self.download_location = f"/usr/src/app/Download/{self.user}/"
 
     async def download_from_link(self):
         url = self.msg.reply_to_message.text
