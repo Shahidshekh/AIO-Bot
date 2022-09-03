@@ -76,7 +76,7 @@ class Downloader:
         else:
             await self.msg.reply_text("File Corrupted", quote=True)
 
-    async def upload(self, local_file_name, message, progress):
+    async def upload(self, local_file_name, message, thumbnail, progress):
         file_name = os.path.basename(local_file_name)
         LOGGER.info(f"uploading : {file_name}")
         LOGGER.info(f"path is : {local_file_name}")
@@ -86,7 +86,7 @@ class Downloader:
             try:
                 total = await message.reply_document(
                     document=local_file_name,
-                    thumb=None,
+                    thumb=thumbnail,
                     caption=f"<code>{file_name}</code>",
                     disable_notification=True,
                     progress=progress
