@@ -5,6 +5,7 @@ from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from bot.modules.logger import LOGGER
 from pyrogram import Client
+from bot.utils.thumb import set_thumb, rm_thumb
 
 if __name__ == "__main__":
     app = Client(
@@ -56,6 +57,18 @@ rm_custom_name = MessageHandler(
     filters=filters.command("rmname")
 )
 app.add_handler(rm_custom_name)
+
+set_name_handler = MessageHandler(
+    set_thumb,
+    filters=filters.command("setthumb")
+)
+app.add_handler(set_name_handler)
+
+rm_thumb_handler = MessageHandler(
+    rm_thumb,
+    filters=filters.command("rmthumb")
+)
+app.add_handler(rm_thumb_handler)
 
 LOGGER.info("The Bot Has Been Started 😎")
 
