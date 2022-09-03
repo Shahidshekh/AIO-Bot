@@ -24,9 +24,9 @@ async def set_thumb(app, message):
         img.save(thumb_path, "JPEG")
         os.remove(thumb_name)
 
-        await ismgs.edit("✅ Custom thumbnail saved. ")
+        await msg.edit("✅ Custom thumbnail saved. ")
     else:
-        await ismgs.edit("❌ Reply to a photo to save custom thumbnail")
+        await msg.edit("❌ Reply to a photo to save custom thumbnail")
 
 async def rm_thumb(app, message):
     thumb_location = "/usr/src/app/thumbnails/"
