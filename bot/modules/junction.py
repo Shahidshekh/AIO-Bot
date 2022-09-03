@@ -98,7 +98,7 @@ async def incoming_func(app, message):
 
 
 async def set_name(app: client, message):
-    msg = await app.send_message(message.from_user.id, "Send me a Custom File Name\n\n**REMEMBER** The custom name "
+    msg = await app.send_message(message.chat.id, "Send me a Custom File Name\n\n**REMEMBER** The custom name "
                                                        "must end with a valid extension and must have character `*` "
                                                        "in it( which will be replaced as File Number(like 01 for the "
                                                        "first file ))\n\nExample : `Demon Slayer Ep*.mkv`")
