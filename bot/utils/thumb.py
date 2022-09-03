@@ -30,7 +30,7 @@ async def set_thumb(app, message):
 
 async def rm_thumb(app, message):
     thumb_location = "/usr/src/app/thumbnails/"
-    thumb_path = f"{thumb_location}{str(message.from_user.id).jpg}"
+    thumb_path = f"{thumb_location}{str(message.from_user.id)}.jpg"
     msg = await message.reply_text("processing ...")
     if os.path.exists(thumb_path):
         os.remove(thumb_path)
