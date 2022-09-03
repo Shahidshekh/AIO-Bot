@@ -20,6 +20,10 @@ async def cb(app, update: CallbackQuery):
     user_id = update.from_user.id
     directory = f"/usr/src/app/extracted/{user_id}/"
     dl_directory = f"/usr/src/app/Download/{user_id}/"
+    thumb_path = f"/usr/src/app/thumb/{user_id}.jpg"
+    thumbnail = None
+    if os.path.exists(thumb_path):
+        thumbnail = thumb_path
     try:
         dir_content = []
         contents = os.listdir(directory)
@@ -45,7 +49,7 @@ async def cb(app, update: CallbackQuery):
         else:
             await app.answer_callback_query(update.id, text="wrong Format! Uploading without Rename", show_alert=False)
 
-        await upload_dir(directory, msg)
+        await upload_dir(directory, msg, thumbnail)
         await asyncio.sleep(3)
         await message.reply("Uploaded Successfully!", quote=True)
 
@@ -58,7 +62,7 @@ async def cb(app, update: CallbackQuery):
         msg = await message.edit("Trying To Upload")
         p_msg = await msg.reply("uploading")
         await msg.delete()
-        await upload_dir(directory, p_msg)
+        await upload_dir(directory, p_msg, thumbnail)
         await asyncio.sleep(3)
         await message.reply("Uploaded Successfully!")
 
@@ -107,7 +111,7 @@ async def cb(app, update: CallbackQuery):
         remove_user(user_id)
 
 
-async def upload_dir(directory, message):
+async def upload_dir(directory, message, thumbnail):
     directory_contents = os.listdir(directory)
     directory_contents.sort()
     start = time()
@@ -121,6 +125,7 @@ async def upload_dir(directory, message):
             await upload(
                 local_file_name=file_loc,
                 message=msg,
+                thumb = thumbnail,
                 progress=prog.up_progress
             )
             await asyncio.sleep(3)
@@ -134,7 +139,7 @@ async def upload_dir(directory, message):
         pass
 
 
-async def upload(local_file_name, message, progress):
+async def upload(local_file_name, message,thumb, progress):
     file_name = os.path.basename(local_file_name)
     stats = os.stat(local_file_name)
     size = round((stats.st_size / (1024 * 1024)), 2)
@@ -142,7 +147,7 @@ async def upload(local_file_name, message, progress):
         try:
             total = await message.reply_document(
                 document=local_file_name,
-                thumb=None,
+                thumb=thumb,
                 caption=f"<code>{file_name}</code>",
                 disable_notification=True,
                 progress=progress
