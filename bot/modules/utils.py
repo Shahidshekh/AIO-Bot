@@ -51,6 +51,7 @@ async def files_keyboard(directory, message):
         files = InlineKeyboardMarkup(fi_butt)
         try:
             await message.edit("Select and Rename files you want -", reply_markup=files)
+            await asyncio.sleep(3)
         except MessageNotModified:
             await asyncio.sleep(1)
         except MessageIdInvalid:
