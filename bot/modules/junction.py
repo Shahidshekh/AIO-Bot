@@ -102,7 +102,7 @@ async def set_name(app: client, message):
                                                        "must end with a valid extension and must have character `*` "
                                                        "in it( which will be replaced as File Number(like 01 for the "
                                                        "first file ))\n\nExample : `Demon Slayer Ep*.mkv`")
-    mess = await app.listen(message.from_user.id)
+    mess = await app.listen(message.chat.id)
     global custom_name
     custom_name = mess.text
     await mess.delete()
