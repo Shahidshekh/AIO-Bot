@@ -5,7 +5,7 @@ import os
 
 async def set_thumb(app, message):
     thumb_location = "/usr/src/app/thumb/"
-    thumb_path = f"{thumb_location}{str(message.from_user.id).jpg}"
+    thumb_path = f"{thumb_location}{str(message.from_user.id)}.jpg"
     msg = await message.reply("Processing...", quote=True)
     if message.reply_to_message is not None:
         if not os.path.exist(thumb_location):
