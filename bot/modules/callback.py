@@ -148,6 +148,8 @@ async def upload(local_file_name, message, progress):
 
         except Exception as e:
             LOGGER.error(e)
+        except FloodWait as fk:
+            await asyncio.sleep(fk.value)
         return
     else:
         message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {size}MiB")
