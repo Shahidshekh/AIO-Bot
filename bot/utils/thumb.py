@@ -20,7 +20,7 @@ async def set_thumb(app, message):
             height = metadata.get("height")
         
         img = Image.open(thumb_name)
-         img.resize((320, height))
+        img.resize((320, height))
         img.save(thumb_path, "JPEG")
         os.remove(thumb_name)
 
