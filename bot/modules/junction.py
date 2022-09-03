@@ -89,7 +89,8 @@ async def incoming_func(app, message):
 
     else:
         lol = await message.reply_text("Reply to a <b>Direct Link or Telegram Media</b>", quote=True)
-        await asyncio.sleep(10)
+        await asyncio.sleep(20)
+        await message.delete()
         await lol.delete()
         return
 
