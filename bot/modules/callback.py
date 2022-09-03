@@ -46,6 +46,7 @@ async def cb(app, update: CallbackQuery):
             await app.answer_callback_query(update.id, text="wrong Format! Uploading without Rename", show_alert=False)
 
         await upload_dir(directory, msg)
+        await asyncio.sleep(3)
         await message.reply("Uploaded Successfully!", quote=True)
 
     elif cb_data == "hellno":
@@ -58,6 +59,7 @@ async def cb(app, update: CallbackQuery):
         p_msg = await msg.reply("uploading")
         await msg.delete()
         await upload_dir(directory, p_msg)
+        await asyncio.sleep(3)
         await message.reply("Uploaded Successfully!")
 
     elif cb_data.startswith("rename"):
