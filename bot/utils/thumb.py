@@ -8,7 +8,7 @@ async def set_thumb(app, message):
     thumb_path = f"{thumb_location}{str(message.from_user.id)}.jpg"
     msg = await message.reply("Processing...", quote=True)
     if message.reply_to_message is not None:
-        if not os.path.exist(thumb_location):
+        if not os.path.exists(thumb_location):
             os.makedirs(thumb_location)
         thumb_name = await app.download_media(
             message=message.reply_to_message, file_name=thumb_location 
