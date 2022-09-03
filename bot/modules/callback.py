@@ -121,6 +121,7 @@ async def upload_dir(directory, message):
                 message=msg,
                 progress=prog.up_progress
             )
+            await asyncio.sleep(3)
         except FloodWait as fd:
             await asyncio.sleep(fd.value)
     await msg.delete()
