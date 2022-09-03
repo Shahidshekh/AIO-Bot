@@ -19,6 +19,9 @@ async def incoming_func(app, message):
     st = time()
     download_location = f"/usr/src/app/Download/{user_id}/"
     ext_location = f"/usr/src/app/extracted/{user_id}/"
+    thumb_path = f"/usr/src/app/thumb/{message.from_user.id}.jpg"
+    if os.path.exists(thumb_path):
+        LOGGER.info(thumb_path)
     download = Downloader(app, message, custom_name)
     reso = search(authorized_chats, str(message.chat.id))
     if not reso:
