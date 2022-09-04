@@ -50,6 +50,7 @@ async def cb(app, update: CallbackQuery):
             await app.answer_callback_query(update.id, text="wrong Format! Uploading without Rename", show_alert=False)
 
         await upload_dir(directory, msg, thumbnail)
+        clean_all(directory)
         await asyncio.sleep(3)
         await message.reply("Uploaded Successfully!", quote=True)
 
