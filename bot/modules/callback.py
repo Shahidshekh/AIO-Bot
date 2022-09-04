@@ -65,6 +65,10 @@ async def cb(app, update: CallbackQuery):
         await upload_dir(directory, p_msg, thumbnail)
         await asyncio.sleep(3)
         await message.reply("Uploaded Successfully!")
+        try:
+            clean_all(directory)
+        except Exception:
+            pass
 
     elif cb_data.startswith("rename"):
         await app.answer_callback_query(update.id, text="ok", show_alert=False)
@@ -132,11 +136,7 @@ async def upload_dir(directory, message, thumbnail):
         except FloodWait as fd:
             await asyncio.sleep(fd.value)
     await msg.delete()
-    try:
-      
-        clean_all(directory)
-    except Exception:
-        pass
+
 
 
 async def upload(local_file_name, message,thumb, progress):
