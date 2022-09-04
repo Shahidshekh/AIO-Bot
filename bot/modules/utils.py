@@ -2,7 +2,7 @@ import asyncio
 import os
 from .logger import LOGGER
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from pyrogram.errors import MessageNotModified, MessageIdInvalid
+from pyrogram.errors import MessageNotModified, MessageIdInvalid, FloodWait
 
 
 class Extract:
@@ -56,3 +56,5 @@ async def files_keyboard(directory, message):
             await asyncio.sleep(1)
         except MessageIdInvalid:
             return
+        except FloodWait as fd:
+            await asyncio.sleep(fd.value)
