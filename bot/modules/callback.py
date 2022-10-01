@@ -12,6 +12,8 @@ from pyrogram.errors import FloodWait
 import asyncio
 from bot.utils.ytdl import Youtube_dl
 from bot import ytdlurls
+from re import split as re_split
+import asyncio
 custom_name = ""
 
 
