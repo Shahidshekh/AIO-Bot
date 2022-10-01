@@ -174,21 +174,11 @@ async def upload(local_file_name, message,thumb, progress):
     else:
         if file_name.upper().endswith(("MP4", "MKV", "WEBM")):
             try:
-                await message.reply_video(
-                    video = local_file_name,
-                    caption = f"`{file_name}`",
-                    progress=progress
-                )
+                await message.reply_video(video = local_file_name, caption = f"`{file_name}`", progress=progress)
     
         else:
             try:
-                await message.reply_document(
-                    document=local_file_name,
-                    thumb=thumb,
-                    caption=f"<code>{file_name}</code>",
-                    disable_notification=True,
-                    progress=progress
-                )
+                await message.reply_document(document=local_file_name, thumb=thumb, caption=f"<code>{file_name}</code>", disable_notification=True, progress=progress)
 
             except FloodWait as fk:
                 await asyncio.sleep(fk.value)
