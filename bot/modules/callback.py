@@ -168,17 +168,18 @@ async def upload_dir(directory, message, thumbnail=None):
 
 
 async def upload(local_file_name, message,thumb, progress):
+    chat = message.chat.id
     file_name = os.path.basename(local_file_name)
     stats = os.stat(local_file_name)
     size = round((stats.st_size / (1024 * 1024)), 2)
-    if size < 1950.00:
-        message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {size}MiB")
+    if not size < 1950.00:
+        await message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {size}MiB")
         return
     else:
         try:
             if file_name.upper().endswith(("MP4", "MKV", "WEBM")):
                 upload_video(message, progress, local_file_name)
-    
+
             else:
                 await message.reply_document(document=local_file_name, thumb=thumb, caption=f"<code>{file_name}</code>", disable_notification=True, progress=progress)
 
