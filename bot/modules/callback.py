@@ -169,6 +169,16 @@ async def upload(local_file_name, message,thumb, progress):
     stats = os.stat(local_file_name)
     size = round((stats.st_size / (1024 * 1024)), 2)
     if size < 1950.00:
+        break
+    if file_name.upper().endswith(("MP4", "MKV")):
+        try:
+            await message.reply_video(
+             video = local_file_name,
+             caption = f"`{file_name}`",
+             progress=progress
+            )
+    
+    else:
         try:
             total = await message.reply_document(
                 document=local_file_name,
