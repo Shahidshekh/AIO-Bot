@@ -169,33 +169,32 @@ async def upload(local_file_name, message,thumb, progress):
     stats = os.stat(local_file_name)
     size = round((stats.st_size / (1024 * 1024)), 2)
     if size < 1950.00:
-        break
-    else:
         message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {size}MiB")
         return
-        
-    if file_name.upper().endswith(("MP4", "MKV", "WEBM")):
-        try:
-            await message.reply_video(
-             video = local_file_name,
-             caption = f"`{file_name}`",
-             progress=progress)
-    
     else:
-        try:
-            total = await message.reply_document(
-                document=local_file_name,
-                thumb=thumb,
-                caption=f"<code>{file_name}</code>",
-                disable_notification=True,
-                progress=progress
-            )
+        if file_name.upper().endswith(("MP4", "MKV", "WEBM")):
+            try:
+                await message.reply_video(
+                    video = local_file_name,
+                    caption = f"`{file_name}`",
+                    progress=progress
+                )
+    
+        else:
+            try:
+                await message.reply_document(
+                    document=local_file_name,
+                    thumb=thumb,
+                    caption=f"<code>{file_name}</code>",
+                    disable_notification=True,
+                    progress=progress
+                )
 
-        except FloodWait as fk:
-            await asyncio.sleep(fk.value)
-        except Exception as e:
-            LOGGER.info(e)
-        return
+            except FloodWait as fk:
+                await asyncio.sleep(fk.value)
+            except Exception as e:
+                LOGGER.info(e)
+            return
 
 
 
