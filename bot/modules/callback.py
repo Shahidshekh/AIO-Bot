@@ -170,7 +170,11 @@ async def upload(local_file_name, message,thumb, progress):
     size = round((stats.st_size / (1024 * 1024)), 2)
     if size < 1950.00:
         break
-    elif file_name.upper().endswith(("MP4", "MKV")):
+    else:
+        message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {size}MiB")
+        return
+        
+    if file_name.upper().endswith(("MP4", "MKV")):
         try:
             await message.reply_video(
              video = local_file_name,
@@ -194,9 +198,7 @@ async def upload(local_file_name, message,thumb, progress):
         except Exception as e:
             LOGGER.info(e)
         return
-    else:
-        message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {size}MiB")
-        return
+
 
 
 def name(name):
