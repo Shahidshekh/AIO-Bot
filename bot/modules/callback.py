@@ -140,7 +140,7 @@ async def cb(app, update: CallbackQuery):
         await upload_dir(dl_directory, ms)
 
 
-async def upload_dir(directory, message, thumbnail):
+async def upload_dir(directory, message, thumbnail=None):
     directory_contents = os.listdir(directory)
     directory_contents.sort()
     start = time()
