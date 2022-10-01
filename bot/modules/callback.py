@@ -2,7 +2,7 @@ from pyrogram.types import CallbackQuery
 from bot.modules.logger import LOGGER
 from bot.utils.client import app
 from bot.modules.dl_progress import Progress
-from time import time
+import time
 from shutil import rmtree
 import os
 from pyromod import listen
