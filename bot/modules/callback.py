@@ -146,6 +146,7 @@ async def cb(app, update: CallbackQuery):
 async def upload_dir(directory, message, thumbnail=None):
     directory_contents = os.listdir(directory)
     directory_contents.sort()
+    LOGGER.info(directory_contents)
     start = time()
     msg = await message.edit("**Uploading...**")
 
@@ -163,6 +164,7 @@ async def upload_dir(directory, message, thumbnail=None):
             await asyncio.sleep(3)
         except FloodWait as fd:
             await asyncio.sleep(fd.value)
+    LOGGER.info("DOne")
     await msg.delete()
 
 
@@ -172,10 +174,13 @@ async def upload(local_file_name, message,thumb, progress):
     file_name = os.path.basename(local_file_name)
     stats = os.stat(local_file_name)
     size = round((stats.st_size / (1024 * 1024)), 2)
+    LOGGER.info("yeah")
     if not size < 1950.00:
+        LOGGER.info("here")
         await message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {size}MiB")
         return
     else:
+        LOGGER.info("here maybe")
         try:
             if file_name.upper().endswith(("MP4", "MKV", "WEBM")):
                 upload_video(message, progress, local_file_name)
@@ -217,6 +222,7 @@ def clean_all(dl_loc):
 
 
 async def upload_video(message, progress, local_file_name):
+    LOGGER.info("yo baby")
     thumb = None
     if local_file_name.upper().endswith(("MKV", "MP4", "WEBM", "FLV", "3GP", "AVI", "MOV", "OGG", "WMV", "M4V", "TS", "MPG", "MTS", "M2TS")):
         duration = 0
