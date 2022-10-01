@@ -141,6 +141,7 @@ async def cb(app, update: CallbackQuery):
         ytdlurls.pop(user_id)
         await asyncio.sleep(5)
         await upload_dir(dl_directory, ms)
+        clean_all(dl_directory)
 
 
 async def upload_dir(directory, message, thumbnail=None):
@@ -182,8 +183,9 @@ async def upload(local_file_name, message,thumb, progress):
     else:
         LOGGER.info("here maybe")
         try:
-            if file_name.upper().endswith(("MP4", "MKV", "WEBM")):
-                upload_video(message, progress, local_file_name)
+            if local_file_name.upper().endswith(("MKV", "MP4", "WEBM", "FLV", "3GP", "AVI", "MOV", "OGG", "WMV", "M4V", "TS", "MPG", "MTS", "M2TS")):
+                LOGGER.info("may work now")
+                await upload_video(message, progress, local_file_name)
 
             else:
                 await message.reply_document(document=local_file_name, thumb=thumb, caption=f"<code>{file_name}</code>", disable_notification=True, progress=progress)
