@@ -116,6 +116,24 @@ async def cb(app, update: CallbackQuery):
         await message.reply("Download Cancelled 😶‍🌫️️")
         await message.delete()
         remove_user(user_id)
+        
+    elif cb_data.startswith('yt'):
+        LOGGER.info(cb_data)
+        await app.answer_callback_query(update.id)
+        ms = await update.message.edit("Trying to download")
+        d = cb_data.split()
+        qual = d[1]
+        user_id = d[2]
+        dler = Youtube_dl(message)
+        url = ytdlurls[user_id]
+        if qual.startswith('bv*['):
+            height = re_split(r'\[|\]', qual, maxsplit=2)[1]
+            qual = qual + f"+ba/b[{height}]"
+            LOGGER.info(qual)
+        await dler.add_download(url, dl_directory, qual)
+        ytdlurls.pop(user_id)
+        await asyncio.sleep(5)
+        await upload_dir(dl_directory, ms)
 
 
 async def upload_dir(directory, message, thumbnail):
