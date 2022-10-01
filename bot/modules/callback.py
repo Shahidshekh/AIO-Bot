@@ -172,19 +172,18 @@ async def upload(local_file_name, message,thumb, progress):
         message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {size}MiB")
         return
     else:
-        if file_name.upper().endswith(("MP4", "MKV", "WEBM")):
-            try:
+        try:
+            if file_name.upper().endswith(("MP4", "MKV", "WEBM")):
                 await message.reply_video(video = local_file_name, caption = f"`{file_name}`", progress=progress)
     
-        else:
-            try:
+            else:
                 await message.reply_document(document=local_file_name, thumb=thumb, caption=f"<code>{file_name}</code>", disable_notification=True, progress=progress)
 
-            except FloodWait as fk:
-                await asyncio.sleep(fk.value)
-            except Exception as e:
-                LOGGER.info(e)
-            return
+        except FloodWait as fk:
+            await asyncio.sleep(fk.value)
+        except Exception as e:
+            LOGGER.info(e)
+        return
 
 
 
