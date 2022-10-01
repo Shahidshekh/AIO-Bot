@@ -2,7 +2,7 @@ from pyrogram.types import CallbackQuery
 from bot.modules.logger import LOGGER
 from bot.utils.client import app
 from bot.modules.dl_progress import Progress
-import time
+from time import time
 from shutil import rmtree
 import os
 from pyromod import listen
@@ -249,7 +249,7 @@ async def upload_video(message, progress, local_file_name, yt_thumb = None):
             req = requests.get(yt_thumb)
             thumb_image_path = os.path.join(
                 os.path.dirname(os.path.abspath(local_file_name)),
-                str(time.time()) + ".jpg",
+                str(time()) + ".jpg",
             )
             with open(thumb_image_path, "wb") as thum:
                 thum.write(req.content)
