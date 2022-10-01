@@ -11,6 +11,7 @@ from bot.modules.utils import files_keyboard
 from pyrogram.errors import FloodWait
 import asyncio
 from bot.utils.ytdl import Youtube_dl
+from bot import ytdlurls
 custom_name = ""
 
 
