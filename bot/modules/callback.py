@@ -175,8 +175,7 @@ async def upload(local_file_name, message,thumb, progress):
             await message.reply_video(
              video = local_file_name,
              caption = f"`{file_name}`",
-             progress=progress
-            )
+             progress=progress)
     
     else:
         try:
