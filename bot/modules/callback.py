@@ -149,7 +149,7 @@ async def upload_dir(directory, message, thumbnail=None):
     directory_contents.sort()
     LOGGER.info(directory_contents)
     start = time.time()
-    msg = await message.edit("**Uploading...**")
+    msg = await message.edit("**Uploading.....**")
 
     for file in directory_contents:
         basename = os.path.basename(file)
