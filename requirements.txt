@@ -10,3 +10,4 @@ Pillow
 gunicorn
 pyromod
 hachoir
+yt-dlp
