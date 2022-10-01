@@ -6,6 +6,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from bot.modules.logger import LOGGER
 from pyrogram import Client
 from bot.utils.thumb import set_thumb, rm_thumb
+from bot.utils.youtube_dl import yt_dl
 
 if __name__ == "__main__":
     app = Client(
@@ -69,6 +70,12 @@ rm_thumb_handler = MessageHandler(
     filters=filters.command("rmthumb")
 )
 app.add_handler(rm_thumb_handler)
+
+ytdl_handler = MessageHandler(
+    yt_dl,
+    filters=filters.command('ytdl')
+)
+app.add_handler(ytdl_handler)
 
 LOGGER.info("The Bot Has Been Started 😎")
 
