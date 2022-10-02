@@ -225,6 +225,7 @@ def clean_all(dl_loc):
 
 async def upload_video(message, progress, local_file_name, yt_thumb = None):
     LOGGER.info("yo baby")
+    caption_str = f"`{os.path.basename(local_file_name)}`"
     thumb = None
     if local_file_name.upper().endswith(("MKV", "MP4", "WEBM", "FLV", "3GP", "AVI", "MOV", "OGG", "WMV", "M4V", "TS", "MPG", "MTS", "M2TS")):
         duration = 0
