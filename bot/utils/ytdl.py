@@ -47,11 +47,19 @@ def humanbytes(size: int):
     return f"{round(size, 2)} {dic_powern[n]}B"
 
 
-def timeformat(value):
-    seconds = 9.888888888888886 * 60 * 60
+def TimeFormatter(milliseconds: int) -> str:
+    seconds, milliseconds = divmod(int(milliseconds), 1000)
     minutes, seconds = divmod(seconds, 60)
     hours, minutes = divmod(minutes, 60)
-    return f"{hours : 02f}:{minutes : 02f}:{seconds : 02f}"
+    days, hours = divmod(hours, 24)
+    tmp = (
+        ((str(days) + "d, ") if days else "")
+        + ((str(hours) + "h, ") if hours else "")
+        + ((str(minutes) + "m, ") if minutes else "")
+        + ((str(seconds) + "s, ") if seconds else "")
+        + ((str(milliseconds) + "ms, ") if milliseconds else "")
+    )
+    return tmp[:-2]
 
 
 class Youtube_dl:
@@ -153,11 +161,12 @@ class Youtube_dl:
 
 **Done** : `{humanbytes(self.downloaded_bytes)} of {humanbytes(self.size)}`
 **Speed** : `{humanbytes(self.speed)}/s`
-**Elapsed** : `{int(elapsed)}s`
-**ETA : `{self.eta}s`'''
+**Elapsed** : `{TimeFormatter(int(elapsed))}`
+**ETA : `{TimeFormatter(self.eta)}`'''
             if self.__downloading:
                 try:
                     await msgg.edit(msg)
+                    await asyncio.sleep(3)
                 except MessageNotModified as md:
                     await asyncio.sleep(2)
                 except FloodWait as fd:

@@ -32,13 +32,19 @@ class Progress:
         message = self.mess
         name = self.file
         diff = now - start
+        speed = current / diff
+        elapsed = round(diff) * 1000
+        eta = round((total - current) / speed) * 1000
+        elapsed = TimeFormatter(elapsed)
+        eta = TimeFormatter(eta)
         unfinished = "".join('◉' for i in range(math.floor(percentage / 5)))
         finished = "".join('◌' for i in range(20 - math.floor(percentage / 5)))
         progress = f"[{unfinished}{finished}]"
         if round(diff % 5.00) == 0 or current == total:
             try:
                 message.edit(
-                    f"**Downloading 📥️**\n\n**Name :** <code>{name}</code>\n\n {progress} \n\n**Done :** {humanbytes(current)}\n**Total :** {humanbytes(total)}")
+                    f"**Downloading 📥️**\n\n**Name :** <code>{name}</code>\n\n{progress}\n\n**Done :** `{humanbytes(current)} of {humanbytes(total)}`\n**Speed :** `{humanbytes(speed)}`"
+                    + f"\n**Elapsed :** `{elapsed}`\n**ETA :** `{eta}`")
             except FloodWait as fd:
                 time.sleep(fd.value)
             except Exception as e:
@@ -54,13 +60,19 @@ class Progress:
         message = self.mess
         name = os.path.basename(self.file)
         diff = now - start
+        speed = current / diff
+        elapsed = round(diff) * 1000
+        eta = round((total - current) / speed) * 1000
+        elapsed = TimeFormatter(elapsed)
+        eta = TimeFormatter(eta)
         unfinished = "".join('◉' for i in range(math.floor(percentage / 5)))
         finished = "".join('◌' for i in range(20 - math.floor(percentage / 5)))
         progress = f"[{unfinished}{finished}]"
         if round(diff % 3.00) == 0 or current == total:
             try:
                 message.edit(
-                    f"**Uploading 📤️**\n\n**Name :** <code>{name}</code>\n\n{progress}\n\n**Done :** {humanbytes(current)}\n**Total :** {humanbytes(total)}")
+                    f"**Uploading 📤️**\n\n**Name :** <code>{name}</code>\n\n{progress}\n\n**Done :** `{humanbytes(current)} of {humanbytes(total)}`\n**Speed :** `{humanbytes(speed)}`"
+                    + f"\n**Elapsed :** `{elapsed}`\n**ETA :** `{eta}`")
             except MessageNotModified:
                 time.sleep(3.0)
             except FloodWait as fd:
@@ -69,3 +81,18 @@ class Progress:
             time.sleep(3)
             message.edit("🏃️")
         return
+
+
+def TimeFormatter(milliseconds: int) -> str:
+    seconds, milliseconds = divmod(int(milliseconds), 1000)
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    days, hours = divmod(hours, 24)
+    tmp = (
+        ((str(days) + "d, ") if days else "")
+        + ((str(hours) + "h, ") if hours else "")
+        + ((str(minutes) + "m, ") if minutes else "")
+        + ((str(seconds) + "s, ") if seconds else "")
+        + ((str(milliseconds) + "ms, ") if milliseconds else "")
+    )
+    return tmp[:-2]
