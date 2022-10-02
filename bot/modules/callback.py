@@ -148,7 +148,7 @@ async def upload_dir(directory, message, thumbnail=None):
     directory_contents = os.listdir(directory)
     directory_contents.sort()
     LOGGER.info(directory_contents)
-    start = time.time()
+    start = time()
     msg = await message.edit("**Uploading.....**")
 
     for file in directory_contents:
@@ -249,7 +249,7 @@ async def upload_video(message, progress, local_file_name, yt_thumb = None):
             req = requests.get(yt_thumb)
             thumb_image_path = os.path.join(
                 os.path.dirname(os.path.abspath(local_file_name)),
-                str(time.time()) + ".jpg",
+                str(time()) + ".jpg",
             )
             with open(thumb_image_path, "wb") as thum:
                 thum.write(req.content)
