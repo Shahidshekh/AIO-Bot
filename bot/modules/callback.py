@@ -278,7 +278,6 @@ async def upload_video(message, progress, local_file_name, yt_thumb = None):
     sent_message = await message.reply_video(
                 video=local_file_name,
                 caption=caption_str,
-                parse_mode="html",
                 duration=duration,
                 width=width,
                 height=height,
