@@ -113,7 +113,6 @@ class Youtube_dl:
                     self.downloaded_bytes = d['downloaded_bytes']
                 self.elapsed = d['elapsed']
                 self.eta = d['eta']
-                self.name = d['filename']
                 try:
                     self.progress = (self.downloaded_bytes / self.size) * 100
                 except ZeroDivisionError:

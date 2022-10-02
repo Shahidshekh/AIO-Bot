@@ -43,7 +43,7 @@ class Progress:
         if round(diff % 5.00) == 0 or current == total:
             try:
                 message.edit(
-                    f"**Downloading 📥️**\n\n**Name :** <code>{name}</code>\n\n{progress} {percentage}%\n\n**Done :** `{humanbytes(current)} of {humanbytes(total)}`\n**Speed :** `{humanbytes(speed)}`"
+                    f"**Downloading 📥️**\n\n**Name :** <code>{name}</code>\n\n{progress} {percentage : .2f}%\n\n**Done :** `{humanbytes(current)} of {humanbytes(total)}`\n**Speed :** `{humanbytes(speed)}`"
                     + f"\n**Elapsed :** `{elapsed}`\n**ETA :** `{eta}`")
             except FloodWait as fd:
                 time.sleep(fd.value)
@@ -71,7 +71,7 @@ class Progress:
         if round(diff % 3.00) == 0 or current == total:
             try:
                 message.edit(
-                    f"**Uploading 📤️**\n\n**Name :** <code>{name}</code>\n\n{progress} {percentage}%\n\n**Done :** `{humanbytes(current)} of {humanbytes(total)}`\n**Speed :** `{humanbytes(speed)}/s`"
+                    f"**Uploading 📤️**\n\n**Name :** <code>{name}</code>\n\n{progress} {percentage : .2f}%\n\n**Done :** `{humanbytes(current)} of {humanbytes(total)}`\n**Speed :** `{humanbytes(speed)}/s`"
                     + f"\n**Elapsed :** `{elapsed}`\n**ETA :** `{eta}`")
             except MessageNotModified:
                 time.sleep(3.0)
