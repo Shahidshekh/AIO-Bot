@@ -125,10 +125,12 @@ async def cb(app, update: CallbackQuery):
         remove_user(user_id)
         
     elif cb_data.startswith('yt'):
-        LOGGER.info(cb_data)
         await app.answer_callback_query(update.id)
         ms = await update.message.edit("Trying to download")
         d = cb_data.split()
+        if d[1]=="cancel":
+            await ms.edit("`Cancelled.`")
+            return
         qual = d[1]
         user_id = d[2]
         dler = Youtube_dl(message)

@@ -14,15 +14,25 @@ async def yt_dl(app, message):
     LOGGER.info(ytdlurls)
     buttons = []
     lol = await message.reply("Getting Formats...", quote=True)
+    best_video = "bv*+ba/b"
+    best_audio = "ba/b"
     with YoutubeDL() as ytdl:
         info = ytdl.extract_info(str(url.text), download=False)
         if 'entries' in info:
             for i in ['144', '240', '360', '480', '720', '1080', '1440', '2160']:
                 video_format = f"bv*[height<={i}][ext=mp4]"
-                LOGGER.info(video_format)
+                buttons.append(
+                    InlineKeyboardButton(text=f"{i}-mp4", callback_data=f"yt {video_format} {user_id}")
+                )
                 video_format = f"bv*[height<={i}][ext=webm]"
-                LOGGER.info(video_format)
-
+                buttons.append(
+                    InlineKeyboardButton(text=f"{i}-webm", callback_data=f"yt {video_format} {user_id}")
+                )
+            buttons.append(InlineKeyboardButton(text="Best Video", callback_data=f"yt {best_video} {user_id}"))
+            buttons.append(InlineKeyboardButton(text="Best Audio", callback_data=f"yt {best_audio} {user_id}"))
+            resize = [buttons[i:i + 2] for i in range(0, len(buttons), 2)]
+            butt_markup = InlineKeyboardMarkup(resize)
+            await lol.edit("select format :", reply_markup=butt_markup)
         else:
             formats = info.get('formats')
             formats_dict = {}
@@ -64,9 +74,12 @@ async def yt_dl(app, message):
                         buttons.append(
                             InlineKeyboardButton(text=f"{_format}--{size}", callback_data=f"yt {video_format} {user_id}")
                         )
-                    resize = [buttons[i:i + 2] for i in range(0, len(buttons), 2)]
-                butt_markup = InlineKeyboardMarkup(resize)
-                await lol.edit("select format :", reply_markup=butt_markup)
+            buttons.append(InlineKeyboardButton(text="Best Video", callback_data=f"yt {best_video} {user_id}"))
+            buttons.append(InlineKeyboardButton(text="Best Audio", callback_data=f"yt {best_audio} {user_id}"))
+            buttons.append(InlineKeyboardButton(text="Cancel", callback_data=f"yt cancel"))
+            resize = [buttons[i:i + 2] for i in range(0, len(buttons), 2)]
+            butt_markup = InlineKeyboardMarkup(resize)
+            await lol.edit("select format :", reply_markup=butt_markup)
 
 
 def humanbytes(size: int):
