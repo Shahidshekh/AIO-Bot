@@ -35,7 +35,7 @@ async def incoming_func(app, message):
             if mess.media and user_id:
                 file_name = await download.download_from_file(app)
                 LOGGER.info(f"Downloaded : {file_name}")
-                if command.endswith('extract'):
+                if command.lower.endswith('extract'):
                     LOGGER.info("Extracting...")
                     await download.extractit(file_name, ext_location)
                 else:
@@ -62,15 +62,16 @@ async def incoming_func(app, message):
                 if file_name is False:
                     return
                 else:
-                    if command.endswith('extract'):
+                    if command.lower.endswith('extract'):
                         await download.extractit(file_name, ext_location)
-                        
+                    elif command.lower.endswith('compress'):
+                        msg = await message.reply("**Compressing...**", quote=True)
                     else:
                         if new_name != "":
                             os.rename(file_name, f"{download_location}{new_name}")
                             file_name = f"{download_location}{new_name}"
                                       
-                        msg = await message.reply("**Trying to upload...**")
+                        msg = await message.reply("**Trying to upload...**", quote=True)
                         await asyncio.sleep(3)
                         prog = Progress(msg, file_name, st)
                         try:

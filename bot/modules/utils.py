@@ -28,6 +28,12 @@ class Extract:
 
 
 async def files_keyboard(directory, message):
+    fcontent = os.listdir(directory)
+    fcontents = []
+    for fi in content:
+        if os.path.isfile(f"{directory}{fi}"):
+            contents.append(fi)
+    fcontents.sort()
     while True:
         try:
             content = os.listdir(directory)
@@ -50,11 +56,22 @@ async def files_keyboard(directory, message):
         fi_butt.append([InlineKeyboardButton(text="Upload", callback_data="upload")])
         files = InlineKeyboardMarkup(fi_butt)
         try:
-            await message.edit("Select and Rename files you want -", reply_markup=files)
-            await asyncio.sleep(3)
+            if contents != fcontents:
+                await message.edit("Select and Rename files you want -", reply_markup=files)
         except MessageNotModified:
             await asyncio.sleep(1)
         except MessageIdInvalid:
             return
         except FloodWait as fd:
             await asyncio.sleep(fd.value)
+
+
+async def compress(local_file, out, message):
+    filename = os.path.basename(local_file)
+    cmd = f'ffmpeg -i "{local_file}" -preset ultrafast -c:v libx265 -crf 27 -map 0:v -c:a aac -map 0:a -c:s copy -map 0:s? "{out}" -y'
+    mess = await message.edit("**Compressing...**")
+    proc = asyncio.create_subprocess_shell(cmd, stderr=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE)
+    stdout, stderr = await proc.communicate()
+    err = stderr.decode()
+    if err:
+        await mess.edit("**Error 🤷‍♂️")
