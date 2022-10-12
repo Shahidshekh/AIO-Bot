@@ -67,6 +67,7 @@ async def incoming_func(app, message):
                     elif command.lower().endswith('compress'):
                         msg = await message.reply("**Compressing...**", quote=True)
                         filename = os.path.basename(file_name)
+                        os.makedirs(ext_location)
                         out = f"{ext_location}{filename}"
                         await compress(file_name, out, msg)
                     else:
