@@ -133,7 +133,7 @@ async def compress(local_file, out, message, user):
     err = stderr.decode()
     if err:
         await mess.edit("**Error 🤷‍♂️**")
-        LOGGER.error(err)
+        #LOGGER.error(err)
         return
     else:
         total = humanbytes(os.stat(dl_loc).st_size)
