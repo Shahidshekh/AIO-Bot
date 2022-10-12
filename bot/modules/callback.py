@@ -144,6 +144,15 @@ async def cb(app, update: CallbackQuery):
         await asyncio.sleep(5)
         await upload_dir(dl_directory, ms)
         clean_all(dl_directory)
+    
+    elif cb_data.startswith('c'):
+        filename = cb_data.split('|')[-1]
+        dl_loc = f"{dl_directory}{filename}"
+        out_loc = f"{directory}{filename}"
+        total = humanbytes(os.stat(dl_loc).st_size)
+        current = humanbytes(os.stat(out_loc).st_size)
+        await app.answer_callback_query(update.id, text=f"**STATS**\n\n**Total : `{total}`\n**Done** : `{current}`", show_alert=True)
+
 
 
 async def upload_dir(directory, message, thumbnail=None):
@@ -317,3 +326,15 @@ async def take_screen_shot(video_file, output_directory, ttl):
         return out_put_file_name
     else:
         return None
+
+
+def humanbytes(size: int):
+    if not size:
+        return "N/A"
+    power = 2 ** 10
+    n = 0
+    dic_powern = {0: " ", 1: "K", 2: "M", 3: "G", 4: "T"}
+    while size > power:
+        size /= power
+        n += 1
+    return f"{round(size, 2)} {dic_powern[n]}B"

@@ -115,7 +115,17 @@ def clean_all(dl_loc):
 async def compress(local_file, out, message):
     filename = os.path.basename(local_file)
     cmd = f'ffmpeg -i "{local_file}" -preset ultrafast -c:v libx265 -crf 27 -map 0:v -c:a aac -map 0:a -c:s copy -map 0:s? "{out}" -y'
-    mess = await message.edit("**Compressing...**")
+    reply_markup = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("Stats", callback_data=f"c |{filename}")
+            ]        
+        ]
+    )
+    mess = await message.edit(
+        f"**Compressing...**\n\n**Name** : `{filename}`", 
+        reply_markup=reply_markup
+        )
     proc = asyncio.create_subprocess_shell(cmd, stderr=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE)
     stdout, stderr = await proc.communicate()
     err = stderr.decode()
