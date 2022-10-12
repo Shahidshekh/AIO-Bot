@@ -43,7 +43,7 @@ async def incoming_func(app, message):
                     filename = os.path.basename(file_name)
                     os.makedirs(ext_location)
                     out = f"{ext_location}{filename}"
-                    await compress(file_name, out, msg)
+                    await compress(file_name, out, msg, user_id)
                 else:
                     msg = await message.reply("**Trying to upload...**")
                     prog = Progress(msg, file_name, st)
@@ -75,7 +75,7 @@ async def incoming_func(app, message):
                         filename = os.path.basename(file_name)
                         os.makedirs(ext_location)
                         out = f"{ext_location}{filename}"
-                        await compress(file_name, out, msg)
+                        await compress(file_name, out, msg, user_id)
                     else:
                         if new_name != "":
                             os.rename(file_name, f"{download_location}{new_name}")

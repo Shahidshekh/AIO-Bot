@@ -9,6 +9,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.types import CallbackQuery
 from bot.modules.utils import files_keyboard
 from shutil import rmtree
+from bot import filenames
 from pyrogram.errors import FloodWait
 
 
@@ -112,13 +113,14 @@ def clean_all(dl_loc):
         pass
 
 
-async def compress(local_file, out, message):
+async def compress(local_file, out, message, user):
     filename = os.path.basename(local_file)
+    filenames.update({f"{user}" : f"{filename}"})
     cmd = f'ffmpeg -i "{local_file}" -preset ultrafast -c:v libx265 -crf 27 -map 0:v -c:a aac -map 0:a -c:s copy -map 0:s? "{out}" -y'
     reply_markup = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("Stats", callback_data=f"c |{filename}")
+                InlineKeyboardButton("Stats", callback_data=f"c |{user}")
             ]        
         ]
     )

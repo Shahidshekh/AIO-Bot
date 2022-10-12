@@ -11,7 +11,7 @@ from bot.modules.utils import files_keyboard
 from pyrogram.errors import FloodWait
 import asyncio
 from bot.utils.ytdl import Youtube_dl
-from bot import ytdlurls
+from bot import ytdlurls, filenames
 from re import split as re_split
 import asyncio
 from hachoir.metadata import extractMetadata
@@ -146,7 +146,8 @@ async def cb(app, update: CallbackQuery):
         clean_all(dl_directory)
     
     elif cb_data.startswith('c'):
-        filename = cb_data.split('|')[-1]
+        user = cb_data.split('|')[-1]
+        filename = filenames[user]
         dl_loc = f"{dl_directory}{filename}"
         out_loc = f"{directory}{filename}"
         try:
