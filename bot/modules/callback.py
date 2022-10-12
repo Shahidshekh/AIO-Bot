@@ -154,7 +154,7 @@ async def cb(app, update: CallbackQuery):
             current = humanbytes(os.stat(out_loc).st_size)
         except Exception:
             pass
-        await app.answer_callback_query(update.id, text=f"**STATS**\n\n**Total : `{total}`\n**Done** : `{current}`", show_alert=True)
+        await app.answer_callback_query(update.id, text=f"STATS\n\nTotal : {total}\nDone : {current}", show_alert=True)
 
 
 
