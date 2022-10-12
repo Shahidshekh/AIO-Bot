@@ -149,8 +149,11 @@ async def cb(app, update: CallbackQuery):
         filename = cb_data.split('|')[-1]
         dl_loc = f"{dl_directory}{filename}"
         out_loc = f"{directory}{filename}"
-        total = humanbytes(os.stat(dl_loc).st_size)
-        current = humanbytes(os.stat(out_loc).st_size)
+        try:
+            total = humanbytes(os.stat(dl_loc).st_size)
+            current = humanbytes(os.stat(out_loc).st_size)
+        except Exception:
+            pass
         await app.answer_callback_query(update.id, text=f"**STATS**\n\n**Total : `{total}`\n**Done** : `{current}`", show_alert=True)
 
 
