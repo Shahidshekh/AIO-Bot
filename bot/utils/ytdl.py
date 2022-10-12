@@ -119,10 +119,8 @@ class Youtube_dl:
                     pass
 
     async def start_dl(self, link):
-        LOGGER.info(self.opts)
         with YoutubeDL(self.opts) as ytdl:
             try:
-                LOGGER.info("Starting dl")
                 Thread(target=ytdl.download, args=([link])).start()
                 await self.progress_msg()
             except DownloadError as de:
