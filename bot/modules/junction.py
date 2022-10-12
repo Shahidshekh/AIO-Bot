@@ -62,9 +62,9 @@ async def incoming_func(app, message):
                 if file_name is False:
                     return
                 else:
-                    if command.lower.endswith('extract'):
+                    if command.lower().endswith('extract'):
                         await download.extractit(file_name, ext_location)
-                    elif command.lower.endswith('compress'):
+                    elif command.lower().endswith('compress'):
                         msg = await message.reply("**Compressing...**", quote=True)
                         out = f"{ext_location}{file_name}"
                         await compress(file_name, out, msg)
