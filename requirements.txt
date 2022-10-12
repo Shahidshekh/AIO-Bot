@@ -11,3 +11,4 @@ gunicorn
 pyromod
 hachoir
 yt-dlp
+requests
