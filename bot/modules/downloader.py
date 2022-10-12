@@ -130,6 +130,22 @@ async def compress(local_file, out, message):
     stdout, stderr = await proc.communicate()
     err = stderr.decode()
     if err:
-        await mess.edit("**Error 🤷‍♂️")
+        await mess.edit("**Error 🤷‍♂️**")
         return
+    else:
+        total = humanbytes(os.stat(dl_loc).st_size)
+        current = humanbytes(os.stat(out_loc).st_size)
+        await mess.edit(f"**Compressed Successfully!**\n\n**Name** : `{filename}`\n**Original : `{total}`\n**Compressed : `{current}`**")
     await upload(out)
+
+
+def humanbytes(size: int):
+    if not size:
+        return "N/A"
+    power = 2 ** 10
+    n = 0
+    dic_powern = {0: " ", 1: "K", 2: "M", 3: "G", 4: "T"}
+    while size > power:
+        size /= power
+        n += 1
+    return f"{round(size, 2)} {dic_powern[n]}B"
