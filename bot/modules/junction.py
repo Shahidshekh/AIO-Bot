@@ -35,7 +35,7 @@ async def incoming_func(app, message):
             if mess.media and user_id:
                 file_name = await download.download_from_file(app)
                 LOGGER.info(f"Downloaded : {file_name}")
-                if command.lower.endswith('extract'):
+                if command.lower().endswith('extract'):
                     LOGGER.info("Extracting...")
                     await download.extractit(file_name, ext_location)
                 elif command.lower().endswith('compress'):
