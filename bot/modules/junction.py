@@ -66,7 +66,8 @@ async def incoming_func(app, message):
                         await download.extractit(file_name, ext_location)
                     elif command.lower().endswith('compress'):
                         msg = await message.reply("**Compressing...**", quote=True)
-                        out = f"{ext_location}{file_name}"
+                        filename = os.path.basename(file_name)
+                        out = f"{ext_location}{filename}"
                         await compress(file_name, out, msg)
                     else:
                         if new_name != "":
