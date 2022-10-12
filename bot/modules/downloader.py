@@ -126,7 +126,7 @@ async def compress(local_file, out, message):
         f"**Compressing...**\n\n**Name** : `{filename}`", 
         reply_markup=reply_markup
         )
-    proc = asyncio.create_subprocess_shell(cmd, stderr=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE)
+    proc = await asyncio.create_subprocess_shell(cmd, stderr=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE)
     stdout, stderr = await proc.communicate()
     err = stderr.decode()
     if err:
