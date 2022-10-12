@@ -65,13 +65,3 @@ async def files_keyboard(directory, message):
         except FloodWait as fd:
             await asyncio.sleep(fd.value)
 
-
-async def compress(local_file, out, message):
-    filename = os.path.basename(local_file)
-    cmd = f'ffmpeg -i "{local_file}" -preset ultrafast -c:v libx265 -crf 27 -map 0:v -c:a aac -map 0:a -c:s copy -map 0:s? "{out}" -y'
-    mess = await message.edit("**Compressing...**")
-    proc = asyncio.create_subprocess_shell(cmd, stderr=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE)
-    stdout, stderr = await proc.communicate()
-    err = stderr.decode()
-    if err:
-        await mess.edit("**Error 🤷‍♂️")

@@ -2,7 +2,7 @@ import asyncio
 from shutil import rmtree
 from time import time
 from pyrogram import client
-from bot.modules.downloader import Downloader
+from bot.modules.downloader import Downloader, compress
 from bot.modules.dl_progress import Progress
 from bot.modules.logger import LOGGER
 from bot.modules.callback import name
@@ -66,6 +66,8 @@ async def incoming_func(app, message):
                         await download.extractit(file_name, ext_location)
                     elif command.lower.endswith('compress'):
                         msg = await message.reply("**Compressing...**", quote=True)
+                        out = f"{ext_location}{file_name}"
+                        await compress(file_name, out, msg)
                     else:
                         if new_name != "":
                             os.rename(file_name, f"{download_location}{new_name}")
