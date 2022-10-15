@@ -69,6 +69,6 @@ async def log(app, message):
     await message.reply_document(
         document="log.txt",
         thumb=None,
-        caption="`logs`"
+        caption="`logs`",
         disable_notification=False
     )
