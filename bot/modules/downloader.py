@@ -123,7 +123,7 @@ async def compress(local_file, out, message, user):
             ]        
         ]
     )
-    mess = await message.edit(
+    mess = await message.reply(
         f"**Compressing...**\n\n**Name** : `{filename}`", 
         reply_markup=reply_markup
         )
