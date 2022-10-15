@@ -131,10 +131,10 @@ async def compress(local_file, out, message, user):
     proc = await asyncio.create_subprocess_shell(cmd, stderr=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE)
     stdout, stderr = await proc.communicate()
     err = stderr.decode()
-    if err:
-        await mess.edit("**Error 🤷‍♂️**")
-        LOGGER.error(err)
-        return
+    #if err:
+    #    await mess.edit("**Error 🤷‍♂️**")
+    #    LOGGER.error(err)
+     #   return
     else:
         total = humanbytes(os.stat(dl_loc).st_size)
         current = humanbytes(os.stat(out_loc).st_size)
