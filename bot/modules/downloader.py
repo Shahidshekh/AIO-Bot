@@ -135,10 +135,10 @@ async def compress(local_file, out, message, user):
     #    await mess.edit("**Error 🤷‍♂️**")
     #    LOGGER.error(err)
      #   return
-    else:
-        total = humanbytes(os.stat(dl_loc).st_size)
-        current = humanbytes(os.stat(out_loc).st_size)
-        await mess.edit(f"**Compressed Successfully!**\n\n**Name** : `{filename}`\n**Original** : `{total}`\n**Compressed** : `{current}`")
+    
+    total = humanbytes(os.stat(dl_loc).st_size)
+    current = humanbytes(os.stat(out_loc).st_size)
+    await mess.edit(f"**Compressed Successfully!**\n\n**Name** : `{filename}`\n**Original** : `{total}`\n**Compressed** : `{current}`")
     await upload(out)
 
 
