@@ -132,10 +132,12 @@ async def compress(local_file, out, message, user):
     proc = await asyncio.create_subprocess_shell(cmd, stderr=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE)
     stdout, stderr = await proc.communicate()
     err = stderr.decode()
-    #if err:
+    u = stdout.decode()
+    LOGGER.info(u)
+    if err:
     #    await mess.edit("**Error 🤷‍♂️**")
-    #    LOGGER.error(err)
-     #   return
+        LOGGER.error(err)
+    #    return
     
     await mess.edit(f"**Compressed Successfully!**")
     await dldr.upload(out)
