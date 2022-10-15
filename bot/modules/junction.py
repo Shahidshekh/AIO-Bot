@@ -39,7 +39,6 @@ async def incoming_func(app, message):
                     LOGGER.info("Extracting...")
                     await download.extractit(file_name, ext_location)
                 elif command.lower().endswith('compress'):
-                    msg = await message.reply("**Compressing...**", quote=True)
                     filename = os.path.basename(file_name)
                     os.makedirs(ext_location)
                     out = f"{ext_location}{filename}"
