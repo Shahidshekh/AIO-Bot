@@ -65,3 +65,10 @@ async def files_keyboard(directory, message):
         except FloodWait as fd:
             await asyncio.sleep(fd.value)
 
+async def log(app, message):
+    await message.reply_document(
+        document="log.txt",
+        thumb=None,
+        caption="`logs`"
+        disable_notification=False
+    )

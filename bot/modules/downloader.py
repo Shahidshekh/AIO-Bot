@@ -92,8 +92,6 @@ class Downloader:
                     disable_notification=True,
                     progress=progress
                 )
-                if total is not None:
-                    LOGGER.info("Uploaded fk")
                 clean_all(self.download_location)
 
             except Exception as e:
@@ -117,7 +115,7 @@ async def compress(local_file, out, message, user):
     filename = os.path.basename(local_file)
     filenames.update({f"{user}" : f"{filename}"})
     dldr = Downloader(client=None, message=message, custom_name=None)
-    cmd = f"ffmpeg -i {local_file} -vcodec libx265 -crf 28 {out}"
+    cmd = f"ffmpeg -i {local_file} -vcodec libx265 -crf 24 {out}"
     reply_markup = InlineKeyboardMarkup(
         [
             [
@@ -129,18 +127,20 @@ async def compress(local_file, out, message, user):
         f"**Compressing...**\n\n**Name** : `{filename}`", 
         reply_markup=reply_markup
         )
+    st = time()
+    prog = Progress(mess, filename, st)
     proc = await asyncio.create_subprocess_shell(cmd, stderr=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE)
     stdout, stderr = await proc.communicate()
     err = stderr.decode()
     u = stdout.decode()
-    LOGGER.info(u)
-    if err:
+    #LOGGER.info(u)
+    #if err:
     #    await mess.edit("**Error 🤷‍♂️**")
-        LOGGER.error(err)
+    #    LOGGER.error(err)
     #    return
     
     await mess.edit(f"**Compressed Successfully!**")
-    await dldr.upload(out, mess, None, None)
+    await dldr.upload(out, mess, None, prog.up_progress)
 
 
 def humanbytes(size: int):

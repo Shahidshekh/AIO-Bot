@@ -7,6 +7,7 @@ from bot.modules.logger import LOGGER
 from pyrogram import Client
 from bot.utils.thumb import set_thumb, rm_thumb
 from bot.utils.youtube_dl import yt_dl
+from bot.modules.utils import log
 
 if __name__ == "__main__":
     app = Client(
@@ -75,6 +76,12 @@ ytdl_handler = MessageHandler(
     filters=filters.command('ytdl')
 )
 app.add_handler(ytdl_handler)
+
+log_handler = MessageHandler(
+    log,
+    filters=filters.command('log')
+)
+app.add_handler(log_handler)
 
 LOGGER.info("The Bot Has Been Started 😎")
 
