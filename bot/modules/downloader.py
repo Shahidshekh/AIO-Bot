@@ -136,10 +136,10 @@ async def compress(local_file, out, message, user):
     err = stderr.decode()
     u = stdout.decode()
     #LOGGER.info(u)
-    #if err:
-    #    await mess.edit("**Error 🤷‍♂️**")
-    #    LOGGER.error(err)
-    #    return
+    if err:
+        await mess.edit("**Error 🤷‍♂️**")
+        LOGGER.error(err)
+        return
     
     await mess.edit(f"**Compressed Successfully!**")
     await dldr.upload(out, mess, None, prog.up_progress)
