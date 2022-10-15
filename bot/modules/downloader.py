@@ -115,7 +115,7 @@ async def compress(local_file, out, message, user):
     filename = os.path.basename(local_file)
     filenames.update({f"{user}" : f"{filename}"})
     dldr = Downloader(client=None, message=message, custom_name=None)
-    cmd = f"ffmpeg -i {local_file} -vcodec libx265 -crf 24 {out}"
+    cmd = f"ffmpeg -i '{local_file}' -vcodec libx265 -crf 24 '{out}'"
     reply_markup = InlineKeyboardMarkup(
         [
             [
