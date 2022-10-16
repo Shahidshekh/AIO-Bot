@@ -43,7 +43,7 @@ async def start_command(app, message):
 
 leech_handler = MessageHandler(
     incoming_func,
-    filters=filters.command(['leech', 'extract', 'compress'])
+    filters=filters.command(['leech', 'extract'])
 )
 app.add_handler(leech_handler)
 
