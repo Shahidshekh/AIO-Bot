@@ -12,3 +12,4 @@ pyromod
 hachoir
 yt-dlp
 requests
+psycopg2-binary
