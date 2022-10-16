@@ -7,6 +7,7 @@ from bot.modules.logger import LOGGER
 from pyrogram import Client
 from bot.utils.thumb import set_thumb, rm_thumb
 from bot.utils.youtube_dl import yt_dl
+from bot.utils.db_helper import Database
 from bot.modules.utils import log
 
 if __name__ == "__main__":
@@ -30,6 +31,8 @@ async def start_command(app, message):
     ]
     user = message.from_user.id
     name = message.from_user.first_name
+    LOGGER.info("Initiating Database")
+    db = Database()
     await message.reply_text(f"Hello <a href='t.me/{user}'>{name}</a>! 😉\n\nThis is a all in one bot and "
                              f"can do a lot of things. 😁\nStill under Devlopment so u can may Encounter some errors. "
                              f"\n\nMaintained and Purely coded by :\n\n@The_Fourth_Minato 💫",
