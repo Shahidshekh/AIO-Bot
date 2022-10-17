@@ -41,7 +41,9 @@ async def start_command(app, message):
     user = message.from_user.id
     name = message.from_user.first_name
     db = Database()
-    db.add_user(user)
+    LOGGER.info("Adding user")
+    await db.add_user(user)
+    LOGGER.info("done")
     await message.reply_text(f"Hello <a href='t.me/{user}'>{name}</a>! 😉\n\nThis is a all in one bot and "
                              f"can do a lot of things. 😁\nStill under Devlopment so u can may Encounter some errors. "
                              f"\n\nMaintained and Purely coded by :\n\n@The_Fourth_Minato 💫",
