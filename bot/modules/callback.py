@@ -161,9 +161,10 @@ async def cb(app, update: CallbackQuery):
 
     elif cb_data == "mode":
         mode = await get_up_mode(user_id)
-        msgt = "**Upload mode set to** : `{0}`".format("Document" if not mode else "Streamable")
-        text = "{0}".format("Document" if mode else "Streamable")
-        await up_mode(user_id, True if mode else False)
+        await up_mode(user_id, True if not mode else False)
+        msgt = "**Upload Mode Set To** : `{0}`".format("Document" if mode else "Streamable")
+        text = "{0}".format("Document" if not mode else "Streamable")
+        await app.answer_callback_query(update.id, text=f"{text}", show_alert=False)
         reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(text=f"{text}", callback_data="mode")]])
         await update.message.edit(f"{msgt}", reply_markup=reply_markup)
 
