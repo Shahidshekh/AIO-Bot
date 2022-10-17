@@ -11,6 +11,7 @@ class Database:
     def connect(self):
         try:
             client = AsyncIOMotorClient("mongodb+srv://minato:minato5647@cluster0.mukmldp.mongodb.net/?retryWrites=true&w=majority")
+            LOGGER.info("Connected!")
             db = client["aio_bot_users"]
             collection = db['users']
             return collection
