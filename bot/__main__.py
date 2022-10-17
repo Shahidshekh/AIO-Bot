@@ -40,12 +40,7 @@ async def start_command(app, message):
     ]
     user = message.from_user.id
     name = message.from_user.first_name
-    LOGGER.info("Adding user")
-    try:
-        await add_user(user)
-    except Exception as e:
-        LOGGER.info(e)
-    LOGGER.info("done")
+    await add_user(user)
     await message.reply_text(f"Hello <a href='t.me/{user}'>{name}</a>! 😉\n\nThis is a all in one bot and "
                              f"can do a lot of things. 😁\nStill under Devlopment so u can may Encounter some errors. "
                              f"\n\nMaintained and Purely coded by :\n\n@The_Fourth_Minato 💫",

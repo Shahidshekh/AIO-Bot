@@ -7,7 +7,17 @@ user = db['users']
 
 async def add_user(user_id):
     res = await user.find_one({"_id": user_id})
-    LOGGER.info("exist")
     if not res:
         await user.insert_one({"_id": user_id})
-        LOGGER.info("Added!")
+
+
+async def check_user(user_id):
+    res = await user.find_one({"_id": user_id})
+    return True if res else False
+
+async def total_users():
+    return await user.count_documents({})
+
+
+async def users_list():
+    return (user["user_id"] async for user in user_db.find({}))
