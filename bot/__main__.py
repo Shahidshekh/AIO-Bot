@@ -25,7 +25,7 @@ async def startr():
     try:
         with open("/usr/src/app/.restartmg") as fk:
             chat_id, msg_id = map(int, fk)
-            await app.edit_mesage_text(chat_id=chat_id, message_id=msg_id, text="Restarted Successfully!")
+            await app.edit_message_text(chat_id=chat_id, message_id=msg_id, text="Restarted Successfully!")
     except Exception as e:
         LOGGER.error(e)
 
