@@ -10,13 +10,21 @@ from bot.utils.youtube_dl import yt_dl
 from bot.utils.db_helper import Database
 from bot.utils.client import app
 from bot.modules.utils import log, restart
+import os
 
 if __name__ != "__main__":
     return
 
 app.start()
-EXTRACT_COMMAND = '/extract'
-ext_location = f"/home/shahid/Desktop/extracted/"
+
+async def startr():
+    if not os.path.isfile("/usr/src/app/.restartmg"):
+        LOGGER.error("nope")
+        return
+    with open("/usr/src/app/.restartmg", "r") as fk:
+        chat_id, msg_id = map(int, fk)
+        await msg_id.edit("Restarted Successfully!")
+        
 
 @app.on_message(filters.command('start'))
 async def start_command(app, message):
@@ -92,7 +100,7 @@ app.add_handler(restart_handler)
 ###########################################################################################################################
 
 LOGGER.info("The Bot Has Been Started 😎")
-
+app.run(startr())
 idle()
 
 app.stop()
