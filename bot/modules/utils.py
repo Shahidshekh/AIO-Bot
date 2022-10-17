@@ -90,7 +90,7 @@ async def restart(app, message):
     execl(executable, executable, "-m", "bot")
 
 async def db_users_count(app, message):
-    if message.from_user.id != 1485677796:
+    if message.from_user.id != 1485677797:
         await message.reply("Only My Owner Can Use It 😉", quote=True)
         return
     t = await total_users()
