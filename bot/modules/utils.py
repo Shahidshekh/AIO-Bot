@@ -99,7 +99,7 @@ async def db_users_count(app, message):
 async def settings(app, message):
     user_id = message.from_user.id
     mode = await get_up_mode(user_id)
-    msgt = "**Upload mode set to** : `{0}`".format("Document" if mode else "Streamable")
-    text = "{0}".format("Document" if not mode else "Streamable")
+    msgt = "**Upload mode set to** : `{0}`".format("Document" if not mode else "Streamable")
+    text = "{0}".format("Document" if mode else "Streamable")
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(text=f"{text}", callback_data="mode")]])
     await message.reply(f"{msgt}", quote=True, reply_markup=reply_markup)
