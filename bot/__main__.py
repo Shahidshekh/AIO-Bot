@@ -6,7 +6,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from bot.modules.logger import LOGGER
 from bot.utils.thumb import set_thumb, rm_thumb
 from bot.utils.youtube_dl import yt_dl
-from bot.utils.db_helper import Database
+from bot.database.db_client import add_user
 from bot.modules.utils import log, restart
 from pyrogram import Client
 import os
@@ -40,11 +40,11 @@ async def start_command(app, message):
     ]
     user = message.from_user.id
     name = message.from_user.first_name
-    db = Database()
-    conn = db.connect()
-    LOGGER.info(conn)
     LOGGER.info("Adding user")
-    await db.add_user(user, conn)
+    try:
+        await add_user(user)
+    except Exception as e:
+        LOGGER.info(e)
     LOGGER.info("done")
     await message.reply_text(f"Hello <a href='t.me/{user}'>{name}</a>! 😉\n\nThis is a all in one bot and "
                              f"can do a lot of things. 😁\nStill under Devlopment so u can may Encounter some errors. "
