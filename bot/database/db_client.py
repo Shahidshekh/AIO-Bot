@@ -6,9 +6,9 @@ db = mongodb['aio_bot']
 user = db['users']
 
 async def add_user(user_id):
-    res = await user.find_one({"_id": user_id})
+    res = await user.find_one({"_id": user_id, "vid": False})
     if not res:
-        await user.insert_one({"_id": user_id})
+        await user.insert_one({"_id": user_id, "vid": False})
 
 
 async def check_user(user_id):

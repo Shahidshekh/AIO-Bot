@@ -79,13 +79,19 @@ async def log(app, message):
 
 
 async def restart(app, message):
-  msg = await message.reply("**Restarting.....**", quote=True)
-  srun(["python3", "upstream.py"])
-  with open("/usr/src/app/.restartmg", "w") as f:
-    f.truncate(0)
-    f.write(f"{msg.chat.id}\n{msg.id}\n")
-  execl(executable, executable, "-m", "bot")
+    if message.from_user.id != 1485677796:
+        await message.reply("Only My Owner Can Use It 😉", quote=True)
+        return
+    msg = await message.reply("**Restarting.....**", quote=True)
+    srun(["python3", "upstream.py"])
+    with open("/usr/src/app/.restartmg", "w") as f:
+        f.truncate(0)
+        f.write(f"{msg.chat.id}\n{msg.id}\n")
+    execl(executable, executable, "-m", "bot")
 
 async def db_users_count(app, message):
+    if message.from_user.id != 1485677796:
+        await message.reply("Only My Owner Can Use It 😉", quote=True)
+        return
     t = await total_users()
     await message.reply(f"**Total Users On DB are : {t}**", quote=True)
