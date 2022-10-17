@@ -21,7 +21,13 @@ if __name__ == "__main__":
     )
     app.start()
 
-
+async def startr():
+    try:
+        with open("/usr/src/app/.restartmg") as fk:
+            chat_id, msg_id = map(int, fk)
+            await msg_id.edit("Restarted Successfully!")
+    except Exception as e:
+        LOGGER.error(e)
 
 @app.on_message(filters.command('start'))
 async def start_command(app, message):
@@ -97,7 +103,7 @@ app.add_handler(restart_handler)
 ###########################################################################################################################
 
 LOGGER.info("The Bot Has Been Started 😎")
-
+app.run(startr())
 idle()
 
 app.stop()
