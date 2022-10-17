@@ -160,6 +160,10 @@ async def cb(app, update: CallbackQuery):
         await app.answer_callback_query(update.id, text=f"STATS\n\nTotal : {total}\nDone : {current}", show_alert=True)
 
     elif cb_data == "mode":
+        own = update.message.reply_to.message.from_user.id
+        if user_id != own:
+            app.answer_callback_query(update.id, text="Not Urs 😑", show_alert=True)
+            return
         mode = await get_up_mode(user_id)
         await up_mode(user_id, True if not mode else False)
         msgt = "**Upload Mode Set To** : `{0}`".format("Document" if not mode else "Streamable")
