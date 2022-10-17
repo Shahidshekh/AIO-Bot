@@ -14,7 +14,7 @@ import os
 
 
 
-app.start()
+
 
 async def startr():
     try:
@@ -23,6 +23,9 @@ async def startr():
             await msg_id.edit("Restarted Successfully!")
     except Exception as e:
         LOGGER.info(e)
+
+startr()
+app.start()
 
 @app.on_message(filters.command('start'))
 async def start_command(app, message):
@@ -98,7 +101,7 @@ app.add_handler(restart_handler)
 ###########################################################################################################################
 
 LOGGER.info("The Bot Has Been Started 😎")
-#app.run(startr())
+
 idle()
 
 app.stop()
