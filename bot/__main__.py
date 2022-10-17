@@ -15,7 +15,6 @@ import os
 
 if __name__ == "__main__":
     app.start()
-    startr()
 
 
 async def startr():
@@ -26,7 +25,7 @@ async def startr():
     except Exception as e:
         LOGGER.info(e)
 
-
+startr()
 
 @app.on_message(filters.command('start'))
 async def start_command(app, message):
