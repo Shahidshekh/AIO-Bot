@@ -79,7 +79,7 @@ async def log(app, message):
 
 
 async def restart(app, message):
-    if message.from_user.id != 1485677796:
+    if message.from_user.id != 1485677797:
         await message.reply("Only My Owner Can Use It 😉", quote=True)
         return
     msg = await message.reply("**Restarting.....**", quote=True)
