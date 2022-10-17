@@ -25,7 +25,7 @@ async def startr():
     except Exception as e:
         LOGGER.info(e)
 
-startr()
+#startr()
 
 @app.on_message(filters.command('start'))
 async def start_command(app, message):
