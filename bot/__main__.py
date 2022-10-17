@@ -98,7 +98,7 @@ app.add_handler(restart_handler)
 ###########################################################################################################################
 
 LOGGER.info("The Bot Has Been Started 😎")
-app.run(startr())
+#app.run(startr())
 idle()
 
 app.stop()
