@@ -18,13 +18,12 @@ if __name__ != "__main__":
 app.start()
 
 async def startr():
-    if not os.path.isfile("/usr/src/app/.restartmg"):
-        LOGGER.error("nope")
-        return
-    with open("/usr/src/app/.restartmg", "r") as fk:
-        chat_id, msg_id = map(int, fk)
-        await msg_id.edit("Restarted Successfully!")
-        
+    try:
+        with open("/usr/src/app/.restartmg", "r") as fk:
+            chat_id, msg_id = map(int, fk)
+            await msg_id.edit("Restarted Successfully!")
+    except Exception as e:
+        LOGGER.info(e)
 
 @app.on_message(filters.command('start'))
 async def start_command(app, message):
