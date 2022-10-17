@@ -7,12 +7,18 @@ from bot.modules.logger import LOGGER
 from bot.utils.thumb import set_thumb, rm_thumb
 from bot.utils.youtube_dl import yt_dl
 from bot.utils.db_helper import Database
-from bot.utils.client import app
 from bot.modules.utils import log, restart
+from pyrogram import Client
 import os
 
 
 if __name__ == "__main__":
+    app = Client(
+    "hello",
+    api_id=11873433,
+    api_hash="96abaf0d59cd1f5482bdc93ba6030424",
+    bot_token="5553254288:AAHvhjrbImGLZNQlHgb_TEG43Fuf3UfD47g"
+    )
     app.start()
 
 
