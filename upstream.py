@@ -14,8 +14,8 @@ basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
 
 
 
-UPSTREAM_REPO = 'https://github.com/Shahidshekh/AIO-Bot.git'
-UPSTREAM_BRANCH = 'main'
+UPSTREAM_REPO = "https://github.com/Shahidshekh/AIO-Bot.git"
+UPSTREAM_BRANCH = "main"
 
 
 if UPSTREAM_REPO is not None:
