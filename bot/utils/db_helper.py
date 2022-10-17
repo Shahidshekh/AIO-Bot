@@ -1,4 +1,5 @@
-from pymongo import MongoClient
+
+from motor import AsyncIOMotorClient
 from bot.modules.logger import LOGGER
 
 
@@ -9,7 +10,7 @@ class Database:
 
     def connect(self):
         try:
-            client = MongoClient("mongodb+srv://minato:minato5647@cluster0.mukmldp.mongodb.net/?retryWrites=true&w=majority")
+            client = AsyncIOMotorClient("mongodb+srv://minato:minato5647@cluster0.mukmldp.mongodb.net/?retryWrites=true&w=majority")
             db = client["aio_bot_users"]
             collection = db['users']
             return collection
