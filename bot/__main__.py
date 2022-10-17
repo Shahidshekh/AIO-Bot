@@ -8,7 +8,7 @@ from pyrogram import Client
 from bot.utils.thumb import set_thumb, rm_thumb
 from bot.utils.youtube_dl import yt_dl
 from bot.utils.db_helper import Database
-from bot.modules.utils import log
+from bot.modules.utils import log, restart
 
 if __name__ == "__main__":
     app = Client(
@@ -40,10 +40,10 @@ async def start_command(app, message):
                              reply_markup=InlineKeyboardMarkup(help_button)
                              )
 
-
+###############################################################################################################################
 leech_handler = MessageHandler(
     incoming_func,
-    filters=filters.command(['leech', 'extract'])
+    filters=filters.command(['leech', 'extract', 'compress'])
 )
 app.add_handler(leech_handler)
 
@@ -82,9 +82,17 @@ app.add_handler(ytdl_handler)
 
 log_handler = MessageHandler(
     log,
-    filters=filters.command('log')
+    filters=filters.command('logs')
 )
 app.add_handler(log_handler)
+
+restart_handler = MessageHandler(
+    restart,
+    filters=filters.command('restart')
+)
+app.add_handler(restart_handler)
+
+###########################################################################################################################
 
 LOGGER.info("The Bot Has Been Started 😎")
 
