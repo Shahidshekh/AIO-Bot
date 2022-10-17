@@ -37,6 +37,7 @@ RUN apt -qq update --fix-missing && \
 
 COPY requirements.txt .
 
+RUN /usr/bin/python3 -m pip install "pymongo[srv]"
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 COPY . .
