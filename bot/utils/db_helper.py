@@ -18,6 +18,7 @@ class Database:
             LOGGER.error(e)
 
     async def add_user(self, user_id, coll):
+        LOGGER.info("here")
         res = await coll.find_one({"_id": user_id})
         if not res:
             await coll.insert_one({"_id": user_id})
