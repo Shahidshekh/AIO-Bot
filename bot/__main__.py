@@ -4,7 +4,6 @@ from pyrogram import idle, filters
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from bot.modules.logger import LOGGER
-from pyrogram import Client
 from bot.utils.thumb import set_thumb, rm_thumb
 from bot.utils.youtube_dl import yt_dl
 from bot.utils.db_helper import Database
