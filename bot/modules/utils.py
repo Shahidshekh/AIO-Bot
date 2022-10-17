@@ -6,6 +6,7 @@ from pyrogram.errors import MessageNotModified, MessageIdInvalid, FloodWait
 from subprocess import run as srun
 from sys import executable
 from os import execl
+from bot.database.db_client import total_users
 
 
 class Extract:
@@ -85,3 +86,6 @@ async def restart(app, message):
     f.write(f"{msg.chat.id}\n{msg.id}\n")
   execl(executable, executable, "-m", "bot")
 
+async def db_users_count(app, message):
+    t = await total_users()
+    await message.reply(f"**Total Users On DB are : {t}**", quote=True)

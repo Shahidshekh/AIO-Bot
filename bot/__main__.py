@@ -7,7 +7,7 @@ from bot.modules.logger import LOGGER
 from bot.utils.thumb import set_thumb, rm_thumb
 from bot.utils.youtube_dl import yt_dl
 from bot.database.db_client import add_user
-from bot.modules.utils import log, restart
+from bot.modules.utils import log, restart, db_users_count
 from pyrogram import Client
 import os
 
@@ -100,6 +100,11 @@ restart_handler = MessageHandler(
 )
 app.add_handler(restart_handler)
 
+users_handler = MessageHandler(
+    db_users_count,
+    filters=filters.command('users')
+)
+app.add_handler(users_handler)
 ###########################################################################################################################
 
 LOGGER.info("The Bot Has Been Started 😎")
