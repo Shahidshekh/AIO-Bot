@@ -17,15 +17,6 @@ if __name__ == "__main__":
     app.start()
 
 
-async def startr():
-    try:
-        with open("/usr/src/app/.restartmg", "r") as fk:
-            chat_id, msg_id = map(int, fk)
-            await msg_id.edit("Restarted Successfully!")
-    except Exception as e:
-        LOGGER.info(e)
-
-#startr()
 
 @app.on_message(filters.command('start'))
 async def start_command(app, message):
