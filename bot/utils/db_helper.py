@@ -6,7 +6,6 @@ from bot.modules.logger import LOGGER
 class Database:
     def __init__(self):
         self.err=False
-        self.coll = self.connect()
 
     def connect(self):
         try:
@@ -18,10 +17,10 @@ class Database:
         except Exception as e:
             LOGGER.error(e)
 
-    async def add_user(self, user_id):
-        res = await self.coll.find_one({"_id": user_id})
+    async def add_user(self, user_id, coll):
+        res = await coll.find_one({"_id": user_id})
         if not res:
-            await self.coll.insert_one({"_id": user_id})
+            await coll.insert_one({"_id": user_id})
             LOGGER.info("Added!")
         else:
             LOGGER.info("Exist!")

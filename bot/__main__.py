@@ -41,6 +41,7 @@ async def start_command(app, message):
     user = message.from_user.id
     name = message.from_user.first_name
     db = Database()
+    conn = db.connect()
     LOGGER.info("Adding user")
     await db.add_user(user)
     LOGGER.info("done")
