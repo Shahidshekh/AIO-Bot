@@ -12,8 +12,7 @@ from bot.utils.client import app
 from bot.modules.utils import log, restart
 import os
 
-if __name__ != "__main__":
-    return
+
 
 app.start()
 
