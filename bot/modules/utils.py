@@ -6,7 +6,7 @@ from pyrogram.errors import MessageNotModified, MessageIdInvalid, FloodWait
 from subprocess import run as srun
 from sys import executable
 from os import execl
-from bot.database.db_client import total_users
+from bot.database.db_client import total_users, up_mode, get_up_mode
 
 
 class Extract:
@@ -95,3 +95,10 @@ async def db_users_count(app, message):
         return
     t = await total_users()
     await message.reply(f"**Total Users On DB are : {t}**", quote=True)
+
+async def settings(app, message):
+    mode = await get_up_mode(user_id)
+    msgt = "**Upload mode set to** : `{0}`".format("Document" if mode else "Streamable")
+    text = "{0}".format("Document" if not mode else "Streamable")
+    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(text=f"{text}", callback_data="mode")]])
+    await message.reply(f"{msgt}", quote=True, reply_markup=reply_markup)

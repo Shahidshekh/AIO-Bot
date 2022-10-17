@@ -1,7 +1,9 @@
 from pyrogram.types import CallbackQuery
 from bot.modules.logger import LOGGER
 from bot.utils.client import app
+from bot.database.db_client import up_mode, get_up_mode
 from bot.modules.dl_progress import Progress
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import time
 from shutil import rmtree
 import os
@@ -156,6 +158,15 @@ async def cb(app, update: CallbackQuery):
         except Exception as e:
             LOGGER.error(e)
         await app.answer_callback_query(update.id, text=f"STATS\n\nTotal : {total}\nDone : {current}", show_alert=True)
+
+    elif cb_data == "mode":
+        mode = await get_up_mode(user_id)
+        msgt = "**Upload mode set to** : `{0}`".format("Document" if mode else "Streamable")
+        text = "{0}".format("Document" if not mode else "Streamable")
+        await up_mode(user_id, True if not mode else False)
+        reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(text=f"{text}", callback_data="mode")]])
+        await update.message.edit(f"{msgt}", reply_markup=reply_markup)
+
 
 
 

@@ -21,3 +21,17 @@ async def total_users():
 
 async def users_list():
     return (user["user_id"] async for user in user_db.find({}))
+
+async def up_mode(user_id, mode):
+    res = await user.find_one({"_id": user_id})
+    if res:
+        await user.update_one({"_id": user_id}, {"$set": {"vid": mode}})
+    else:
+        await user.insert_one({"_id": user_id, "vid": mode})
+
+async def get_up_mode(user_id):
+    res = await user.find_one({"_id": user_id})
+    if res:
+        return res['vid']
+    else:
+        return False
