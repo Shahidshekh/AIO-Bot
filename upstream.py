@@ -12,11 +12,36 @@ basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     handlers=[FileHandler('log.txt'), StreamHandler()],
                     level=INFO)
 
+CONFIG_FILE_URL = environ.get('CONFIG_FILE_URL')
+try:
+    if len(CONFIG_FILE_URL) == 0:
+        raise TypeError
+    try:
+        res = rget(CONFIG_FILE_URL)
+        if res.status_code == 200:
+            with open('config.env', 'wb+') as f:
+                f.write(res.content)
+        else:
+            log_error(f"Failed to download config.env {res.status_code}")
+    except Exception as e:
+        log_error(f"CONFIG_FILE_URL: {e}")
+except:
+    pass
 
+load_dotenv('config.env', override=True)
 
 UPSTREAM_REPO = "https://github.com/Shahidshekh/AIO-Bot.git"
 UPSTREAM_BRANCH = "main"
-
+try:
+    if len(UPSTREAM_REPO) == 0:
+       raise TypeError
+except:
+    UPSTREAM_REPO = None
+try:
+    if len(UPSTREAM_BRANCH) == 0:
+       raise TypeError
+except:
+    UPSTREAM_BRANCH = 'main'
 
 if UPSTREAM_REPO is not None:
     if ospath.exists('.git'):
@@ -24,7 +49,7 @@ if UPSTREAM_REPO is not None:
 
     update = srun([f"git init -q \
                      && git config --global user.email shahidshekh715@gmail.com \
-                     && git config --global user.name Shahidshekh \
+                     && git config --global user.name AIO-Bot \
                      && git add . \
                      && git commit -sm update -q \
                      && git remote add origin {UPSTREAM_REPO} \
