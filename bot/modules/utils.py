@@ -97,6 +97,7 @@ async def db_users_count(app, message):
     await message.reply(f"**Total Users On DB are : {t}**", quote=True)
 
 async def settings(app, message):
+    user_id = message.from_user.id
     mode = await get_up_mode(user_id)
     msgt = "**Upload mode set to** : `{0}`".format("Document" if mode else "Streamable")
     text = "{0}".format("Document" if not mode else "Streamable")
