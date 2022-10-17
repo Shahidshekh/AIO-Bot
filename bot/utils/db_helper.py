@@ -15,3 +15,11 @@ class Database:
             return collection
         except Exception as e:
             LOGGER.error(e)
+
+    async def add_user(self, user_id):
+        res = await self.coll.find_one({"_id": user_id})
+        if not res:
+            await self.coll.insert_one({"_id": user_id})
+            LOGGER.info("Added!")
+        else:
+            LOGGER.info("Exist!")
