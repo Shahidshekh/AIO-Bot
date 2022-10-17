@@ -80,7 +80,7 @@ async def log(app, message):
 async def restart(app, message):
   msg = await message.reply("**Restarting.....**", quote=True)
   srun(["python3", "upstream.py"])
-  with open(".restartmg", "w") as f:
+  with open("/usr/src/app/.restartmg", "w") as f:
     f.truncate(0)
     f.write(f"{msg.chat.id}\n{msg.id}\n")
   execl(executable, executable, "-m", "bot")
