@@ -186,4 +186,3 @@ def remove_user(user_id):
             if line.strip("\n") != f"{user_id}":
                 fd.write(line)
         fd.close()
-        LOGGER.info(f"removed {user_id}")
