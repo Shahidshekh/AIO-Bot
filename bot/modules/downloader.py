@@ -90,7 +90,7 @@ def clean_all(dl_loc):
 async def compress(local_file, out, message, user):
     filename = os.path.basename(local_file)
     filenames.update({f"{user}" : f"{filename}"})
-    cmd = f"ffmpeg -i '{local_file}' -vcodec libx265 -crf 24 '{out}'"
+    cmd = f"ffmpeg -i '{local_file}' -vcodec libx265 -crf 22 '{out}'"
     reply_markup = InlineKeyboardMarkup(
         [
             [
@@ -110,11 +110,8 @@ async def compress(local_file, out, message, user):
     #LOGGER.info(u)
     #if err:
         #await mess.edit("**Error 🤷‍♂️**")
-        
-    st = time()
-    prog = Progress(mess, filename, st)
     await mess.edit(f"**Compressed Successfully!**")
-    await upload_video(local_file_name= out,message= mess,thumb= None,progress= prog.up_progress)
+    await upload_video(local_file_name= out,message= mess,thumb= None)
 
 
 def humanbytes(size: int):

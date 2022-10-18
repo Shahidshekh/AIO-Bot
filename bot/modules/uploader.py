@@ -2,12 +2,16 @@ from bot.modules.logger import LOGGER
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from bot.database.db_client import get_up_mode
+from bot.modules.dl_progress import Progress
 from PIL import Image
 import asyncio
 import os
 import time
 
-async def upload_video(message, progress, local_file_name, user_id, yt_thumb = None, thumb = None):
+async def upload_video(message, local_file_name, user_id, yt_thumb = None, thumb = None, mul = False):
+    st = time.time()
+    prog = Progress(message, local_file_name, st)
+    progress = prog.mul_progress if mul else prog.up_progress
     mode = await get_up_mode(user_id)
     if mode:
         await upload(

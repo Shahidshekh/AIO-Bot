@@ -79,7 +79,36 @@ class Progress:
                 time.sleep(fd.value)
         if percentage == 100:
             time.sleep(3)
-            message.edit("🏃️")
+            message.delete()
+        return
+
+    def mul_progress(self, current, total):
+        percentage = current * 100 / total
+        now = time.time()
+        start = self.start
+        message = self.mess
+        name = os.path.basename(self.file)
+        diff = now - start
+        speed = current / diff
+        elapsed = round(diff) * 1000
+        eta = round((total - current) / speed) * 1000
+        elapsed = TimeFormatter(elapsed)
+        eta = TimeFormatter(eta)
+        unfinished = "".join('◉' for i in range(math.floor(percentage / 5)))
+        finished = "".join('◌' for i in range(20 - math.floor(percentage / 5)))
+        progress = f"[{unfinished}{finished}]"
+        if round(diff % 3.00) == 0 or current == total:
+            try:
+                message.edit(
+                    f"**Uploading 📤️**\n\n**Name :** <code>{name}</code>\n\n{progress} {percentage : .2f}%\n\n**Done :** `{humanbytes(current)} of {humanbytes(total)}`\n**Speed :** `{humanbytes(speed)}/s`"
+                    + f"\n**Elapsed :** `{elapsed}`\n**ETA :** `{eta}`")
+            except MessageNotModified:
+                time.sleep(3.0)
+            except FloodWait as fd:
+                time.sleep(fd.value)
+        if percentage == 100:
+            time.sleep(3)
+            message.edit(f"Uploaded {name}✔")
         return
 
 

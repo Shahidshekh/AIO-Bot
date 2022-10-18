@@ -17,7 +17,6 @@ async def incoming_func(app, message):
     command = message.text
     user_id = message.from_user.id
     mess = message.reply_to_message
-    st = time()
     thumbnail = None
     download_location = f"/usr/src/app/Download/{user_id}/"
     ext_location = f"/usr/src/app/extracted/{user_id}/"
@@ -50,13 +49,11 @@ async def incoming_func(app, message):
                     await compress(file_name, out, message, user_id)
                 else:
                     msg = await message.reply("**Trying to upload...**")
-                    prog = Progress(msg, file_name, st)
                     await upload_video(
                         user_id=user_id,
                         local_file_name=file_name,
                         message=msg,
-                        thumb=thumbnail,
-                        progress=prog.up_progress
+                        thumb=thumbnail
                     )
                     await msg.delete()
                     await message.reply("Uploaded Successfully!")
@@ -90,19 +87,17 @@ async def incoming_func(app, message):
                                       
                         msg = await message.reply("**Trying to upload...**", quote=True)
                         await asyncio.sleep(3)
-                        prog = Progress(msg, file_name, st)
                         try:
                             await upload_video(
                                 local_file_name=file_name,
                                 message=msg,
                                 user_id=user_id,
-                                thumb=thumbnail,
-                                progress=prog.up_progress
+                                thumb=thumbnail
                             )
                             await message.reply("Uploaded Successfully!", quote=True)
                         except Exception as e:
                             LOGGER.error(e)
-
+                
             else:
                 await message.reply_text("Doesn't seem to be a <b>Download Source</b>", quote=True)
 

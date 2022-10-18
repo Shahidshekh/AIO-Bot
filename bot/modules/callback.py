@@ -190,21 +190,18 @@ async def cb(app, update: CallbackQuery):
 async def upload_dir(directory, message, thumbnail=None):
     directory_contents = os.listdir(directory)
     directory_contents.sort()
-    start = time.time()
     user_id = message.reply_to_message.from_user.id
     msg = await message.edit("**Uploading.....**")
 
     for file in directory_contents:
         basename = os.path.basename(file)
         file_loc = f"{directory}{basename}"
-        prog = Progress(message, basename, start)
         try:
             await upload_video(
                 local_file_name=file_loc,
                 message=msg,
                 user_id=user_id,
-                thumb = thumbnail,
-                progress=prog.up_progress
+                thumb = thumbnail
             )
             await asyncio.sleep(3)
         except FloodWait as fd:
