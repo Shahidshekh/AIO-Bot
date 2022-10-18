@@ -114,7 +114,7 @@ async def cb(app, update: CallbackQuery):
                 pass
 
     elif cb_data.startswith("none"):
-        await app.answer_callback_query(update.id, text="click on rename", show_alert=rt=True)
+        await app.answer_callback_query(update.id, text="click on rename", show_alert=True)
 
     elif cb_data == "help":
         help_text = "**Bot Commands -\n\nNote** : Bot is still Under Development..\n\n/leech - Reply this command " \
