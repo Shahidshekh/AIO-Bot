@@ -44,6 +44,9 @@ async def cb(app, update: CallbackQuery):
     except:
         pass
     if cb_data == "yeah":
+        if user_id != update.message.reply_to_message.from_user.id:
+            await app.answer_callback_query(update.id, text="Not Urs 😑", show_alert=True)
+            return
         await app.answer_callback_query(update.id, text="omg", show_alert=False)
         msg = await message.edit("**Trying to Upload**")
         if "*" in custom_name:
@@ -66,10 +69,16 @@ async def cb(app, update: CallbackQuery):
         await message.reply("Uploaded Successfully!", quote=True)
 
     elif cb_data == "hellno":
+        if user_id != update.message.reply_to_message.from_user.id:
+            await app.answer_callback_query(update.id, text="Not Urs 😑", show_alert=True)
+            return
         await app.answer_callback_query(update.id, text="alright", show_alert=False)
         await files_keyboard(directory, message)
 
     elif cb_data == "upload":
+        if user_id != update.message.reply_to_message.from_user.id:
+            await app.answer_callback_query(update.id, text="Not Urs 😑", show_alert=True)
+            return
         await app.answer_callback_query(update.id, text="alright", show_alert=False)
         msg = await message.edit("Trying To Upload")
         p_msg = await msg.reply("uploading")
@@ -83,6 +92,9 @@ async def cb(app, update: CallbackQuery):
             pass
 
     elif cb_data.startswith("rename"):
+        if user_id != update.message.reply_to_message.from_user.id:
+            await app.answer_callback_query(update.id, text="Not Urs 😑", show_alert=True)
+            return
         await app.answer_callback_query(update.id, text="ok", show_alert=False)
         fi = cb_data.split(" ")
         file_num = fi[1]
@@ -116,6 +128,9 @@ async def cb(app, update: CallbackQuery):
         await message.edit(help_text)
 
     elif cb_data.startswith("cancel"):
+        if user_id != update.message.reply_to_message.from_user.id:
+            await app.answer_callback_query(update.id, text="Not Urs 😑", show_alert=True)
+            return
         cl = cb_data.split()
         gid = cl[-1]
         LOGGER.info(f"gid is {gid}")
@@ -161,8 +176,6 @@ async def cb(app, update: CallbackQuery):
 
     elif cb_data == "mode":
         own = update.message.reply_to_message.from_user.id
-        LOGGER.info(own)
-        LOGGER.info(user_id)
         if user_id != own:
             await app.answer_callback_query(update.id, text="Not Urs 😑", show_alert=True)
             return
