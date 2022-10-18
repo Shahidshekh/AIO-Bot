@@ -84,10 +84,7 @@ async def cb(app, update: CallbackQuery):
         await upload_dir(directory, msg, thumbnail)
         await asyncio.sleep(3)
         await message.reply("Uploaded Successfully!")
-        try:
-            clean_all(directory)
-        except Exception:
-            pass
+        clean_all(directory)
 
     elif cb_data.startswith("rename"):
         LOGGER.info("here")
