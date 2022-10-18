@@ -46,6 +46,7 @@ async def cb(app, update: CallbackQuery):
         if user_id != update.message.reply_to_message.from_user.id:
             await app.answer_callback_query(update.id, text="Not Urs 😑", show_alert=True)
             return
+        user = int(user_id)
         await app.answer_callback_query(update.id, text="omg", show_alert=False)
         msg = await message.edit("**Trying to Upload**")
         if "*" in custom_name:
@@ -60,7 +61,7 @@ async def cb(app, update: CallbackQuery):
         else:
             await app.answer_callback_query(update.id, text="wrong Format! Uploading without Rename", show_alert=False)
         try:
-            await upload_dir(directory, msg, thumbnail, user_id)
+            await upload_dir(directory, msg, thumbnail, user_id = user)
         except FloodWait as fk:
             await asyncio.sleep(fk.value)
         clean_all(directory)
@@ -79,11 +80,12 @@ async def cb(app, update: CallbackQuery):
         if user_id != update.message.reply_to_message.from_user.id:
             await app.answer_callback_query(update.id, text="Not Urs 😑", show_alert=True)
             return
+        user = int(user_id)
         await app.answer_callback_query(update.id, text="alright", show_alert=False)
         mg = message.reply_to_message
         await message.delete()
         msg = await mg.reply("Trying to Upload...", quote=True)
-        await upload_dir(directory, msg, thumbnail, user_id)
+        await upload_dir(directory, msg, thumbnail, user_id = user)
         await asyncio.sleep(3)
         await message.reply("Uploaded Successfully!")
         clean_all(directory)
@@ -139,6 +141,7 @@ async def cb(app, update: CallbackQuery):
         remove_user(user_id)
         
     elif cb_data.startswith('yt'):
+        user = int(user_id)
         await app.answer_callback_query(update.id)
         ms = await update.message.edit("Trying to download")
         d = cb_data.split()
@@ -156,7 +159,7 @@ async def cb(app, update: CallbackQuery):
         await dler.add_download(url, dl_directory, qual)
         ytdlurls.pop(user_id)
         await asyncio.sleep(5)
-        await upload_dir(dl_directory, ms, user_id=user_id)
+        await upload_dir(dl_directory, ms, user_id=user)
         clean_all(dl_directory)
     
     elif cb_data.startswith('c'):
