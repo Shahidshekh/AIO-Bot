@@ -17,6 +17,7 @@ async def upload_video(message, progress, local_file_name, user_id, yt_thumb = N
             thumbnail=thumb,
             progress=progress
         )
+        return
 
     stats = os.stat(local_file_name)
     size = stats.st_size / (1024 * 1024)
