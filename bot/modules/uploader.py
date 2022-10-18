@@ -77,7 +77,7 @@ async def upload_video(message, local_file_name, user_id, yt_thumb = None, thumb
         if thumb_image_path is not None and os.path.isfile(thumb_image_path):
             thumb = thumb_image_path
 
-    sent_message = await message.reply_video(
+        sent_message = await message.reply_video(
                 video=local_file_name,
                 caption=caption_str,
                 duration=duration,
@@ -87,6 +87,13 @@ async def upload_video(message, local_file_name, user_id, yt_thumb = None, thumb
                 supports_streaming=True,
                 disable_notification=True,
                 progress=progress
+        )
+    else:
+        await upload(
+            local_file_name=local_file_name,
+            message=message,
+            thumbnail=thumb,
+            progress=progress
         )
 
 
