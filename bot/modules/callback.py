@@ -25,7 +25,6 @@ async def cb(app, update: CallbackQuery):
     cb_data = update.data
     message = update.message
     user_id = update.from_user.id
-    owner_id = update.message.reply_to_message.from_user.id
     directory = f"/usr/src/app/extracted/{user_id}/"
     dl_directory = f"/usr/src/app/Download/{user_id}/"
     thumb_path = f"/usr/src/app/thumb/{user_id}.jpg"
@@ -46,7 +45,6 @@ async def cb(app, update: CallbackQuery):
         if user_id != update.message.reply_to_message.from_user.id:
             await app.answer_callback_query(update.id, text="Not Urs 😑", show_alert=True)
             return
-        user = int(user_id)
         await app.answer_callback_query(update.id, text="omg", show_alert=False)
         msg = await message.edit("**Trying to Upload**")
         if "*" in custom_name:
@@ -61,7 +59,7 @@ async def cb(app, update: CallbackQuery):
         else:
             await app.answer_callback_query(update.id, text="wrong Format! Uploading without Rename", show_alert=False)
         try:
-            await upload_dir(directory, msg, thumbnail, user_id = user)
+            await upload_dir(directory, msg, thumbnail=thumbnail, user_id=user_id)
         except FloodWait as fk:
             await asyncio.sleep(fk.value)
         clean_all(directory)
@@ -85,7 +83,7 @@ async def cb(app, update: CallbackQuery):
         mg = message.reply_to_message
         await message.delete()
         msg = await mg.reply("Trying to Upload...", quote=True)
-        await upload_dir(directory, msg, thumbnail, user)
+        await upload_dir(directory, msg, thumbnail=thumbnail, user_id=user_id)
         await asyncio.sleep(3)
         await message.reply("Uploaded Successfully!")
         clean_all(directory)
@@ -159,7 +157,7 @@ async def cb(app, update: CallbackQuery):
         await dler.add_download(url, dl_directory, qual)
         ytdlurls.pop(user_id)
         await asyncio.sleep(5)
-        await upload_dir(dl_directory, ms, user)
+        await upload_dir(dl_directory, ms, user_id=user_id)
         clean_all(dl_directory)
     
     elif cb_data.startswith('c'):
@@ -191,7 +189,6 @@ async def cb(app, update: CallbackQuery):
 
 
 async def upload_dir(directory, message, user_id,thumbnail=None):
-    LOGGER.info(user_id)
     directory_contents = os.listdir(directory)
     directory_contents.sort()
     msg = await message.edit("**Uploading.....**")
