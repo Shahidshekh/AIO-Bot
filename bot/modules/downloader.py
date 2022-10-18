@@ -111,7 +111,7 @@ async def compress(local_file, out, message, user):
     #if err:
         #await mess.edit("**Error 🤷‍♂️**")
     await mess.edit(f"**Compressed Successfully!**")
-    await upload_video(local_file_name= out,message= mess,thumbnail= None, user_id=user)
+    await upload_video(local_file_name=out,message=mess,thumb=None, user_id=user)
 
 
 def humanbytes(size: int):
