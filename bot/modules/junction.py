@@ -52,10 +52,11 @@ async def incoming_func(app, message):
                     msg = await message.reply("**Trying to upload...**")
                     prog = Progress(msg, file_name, st)
                     await upload_video(
-                        file_name,
-                        msg,
-                        thumbnail,
-                        prog.up_progress
+                        user_id=user_id,
+                        local_file_name=file_name,
+                        message=msg,
+                        thumb=thumbnail,
+                        progress=prog.up_progress
                     )
                     await msg.delete()
                     await message.reply("Uploaded Successfully!")
