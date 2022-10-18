@@ -93,10 +93,11 @@ async def incoming_func(app, message):
                         prog = Progress(msg, file_name, st)
                         try:
                             await upload_video(
-                                file_name,
-                                msg,
-                                thumbnail,
-                                prog.up_progress
+                                local_file_name=file_name,
+                                message=msg,
+                                user_id=user_id,
+                                thumb=thumbnail,
+                                progress=prog.up_progress
                             )
                             await message.reply("Uploaded Successfully!", quote=True)
                         except Exception as e:
