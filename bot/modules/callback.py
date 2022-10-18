@@ -203,7 +203,8 @@ async def upload_dir(directory, message, thumbnail=None):
                 local_file_name=file_loc,
                 message=msg,
                 user_id=user_id,
-                thumb = thumbnail
+                thumb = thumbnail,
+                mul=True
             )
             await asyncio.sleep(3)
         except FloodWait as fd:
