@@ -75,6 +75,7 @@ async def cb(app, update: CallbackQuery):
         await files_keyboard(directory, message)
 
     elif cb_data == "upload":
+        LOGGER.info(user_id)
         if user_id != update.message.reply_to_message.from_user.id:
             await app.answer_callback_query(update.id, text="Not Urs 😑", show_alert=True)
             return
