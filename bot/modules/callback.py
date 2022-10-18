@@ -59,7 +59,7 @@ async def cb(app, update: CallbackQuery):
         else:
             await app.answer_callback_query(update.id, text="wrong Format! Uploading without Rename", show_alert=False)
         try:
-            await upload_dir(directory, msg, thumbnail)
+            await upload_dir(directory, msg, thumbnail, user_id)
         except FloodWait as fk:
             await asyncio.sleep(fk.value)
         clean_all(directory)
@@ -81,7 +81,7 @@ async def cb(app, update: CallbackQuery):
         mg = message.reply_to_message
         message.delete()
         msg = await mg.reply("Trying to Upload...", quote=True)
-        await upload_dir(directory, msg, thumbnail)
+        await upload_dir(directory, msg, thumbnail, user_id)
         await asyncio.sleep(3)
         await message.reply("Uploaded Successfully!")
         clean_all(directory)
@@ -114,7 +114,7 @@ async def cb(app, update: CallbackQuery):
                 pass
 
     elif cb_data.startswith("none"):
-        await app.answer_callback_query(update.id, text="click on rename", show_alert=False)
+        await app.answer_callback_query(update.id, text="click on rename", show_alert=rt=True)
 
     elif cb_data == "help":
         help_text = "**Bot Commands -\n\nNote** : Bot is still Under Development..\n\n/leech - Reply this command " \
@@ -156,7 +156,7 @@ async def cb(app, update: CallbackQuery):
         await dler.add_download(url, dl_directory, qual)
         ytdlurls.pop(user_id)
         await asyncio.sleep(5)
-        await upload_dir(dl_directory, ms)
+        await upload_dir(dl_directory, ms, user_id=user_id)
         clean_all(dl_directory)
     
     elif cb_data.startswith('c'):
@@ -187,12 +187,10 @@ async def cb(app, update: CallbackQuery):
 
 
 
-async def upload_dir(directory, message, thumbnail=None):
+async def upload_dir(directory, message, thumbnail=None, user_id):
     directory_contents = os.listdir(directory)
     directory_contents.sort()
-    user_id = message.reply_to_message.from_user.id
     msg = await message.edit("**Uploading.....**")
-
     for file in directory_contents:
         basename = os.path.basename(file)
         file_loc = f"{directory}{basename}"
