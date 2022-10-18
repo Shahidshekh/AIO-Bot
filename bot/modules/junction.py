@@ -3,6 +3,7 @@ from shutil import rmtree
 from time import time
 from pyrogram import client
 from bot.modules.downloader import Downloader, compress
+from bot.modules.uploader import upload_video
 from bot.modules.dl_progress import Progress
 from bot.modules.logger import LOGGER
 from bot.modules.callback import name
@@ -50,7 +51,7 @@ async def incoming_func(app, message):
                 else:
                     msg = await message.reply("**Trying to upload...**")
                     prog = Progress(msg, file_name, st)
-                    await download.upload(
+                    await upload_video(
                         file_name,
                         msg,
                         thumbnail,
@@ -90,7 +91,7 @@ async def incoming_func(app, message):
                         await asyncio.sleep(3)
                         prog = Progress(msg, file_name, st)
                         try:
-                            await download.upload(
+                            await upload_video(
                                 file_name,
                                 msg,
                                 thumbnail,

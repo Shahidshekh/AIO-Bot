@@ -1,4 +1,27 @@
-async def upload_video(message, progress, local_file_name, yt_thumb = None):
+from bot.modules.logger import LOGGER
+from hachoir.metadata import extractMetadata
+from hachoir.parser import createParser
+from bot.database.db_client import get_up_mode
+from PIL import Image
+import asyncio
+import os
+import time
+
+async def upload_video(message, progress, local_file_name, user_id, yt_thumb = None, thumb = None):
+    mode = await get_up_mode(user_id)
+    if mode:
+        await upload(
+            local_file_name=local_file_name,
+            message=message,
+            thumbnail=thumb,
+            progress=progress
+        )
+
+    stats = os.stat(local_file_name)
+    size = stats.st_size / (1024 * 1024)
+    if size > 1950.00:
+        await message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {round(size, 2)}MiB")
+        return
     caption_str = f"`{os.path.basename(local_file_name)}`"
     thumb = None
     if local_file_name.upper().endswith(("MKV", "MP4", "WEBM", "FLV", "3GP", "AVI", "MOV", "OGG", "WMV", "M4V", "TS", "MPG", "MTS", "M2TS")):
@@ -92,6 +115,33 @@ async def take_screen_shot(video_file, output_directory, ttl):
         return out_put_file_name
     else:
         return None
+
+
+async def upload(local_file_name, message, thumbnail, progress):
+    file_name = os.path.basename(local_file_name)
+    LOGGER.info(f"uploading : {file_name}")
+    LOGGER.info(f"path is : {local_file_name}")
+    stats = os.stat(local_file_name)
+    size = stats.st_size / (1024 * 1024)
+    if size < 1950.00:
+        try:
+            total = await message.reply_document(
+                document=local_file_name,
+                thumb=thumbnail,
+                caption=f"<code>{file_name}</code>",
+                disable_notification=True,
+                progress=progress
+            )
+            clean_all(self.download_location)
+
+        except Exception as e:
+            LOGGER.error(e)
+        except FloodWait as fd:
+            await asyncio.sleep(fd.value)
+        return
+    else:
+        await message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {round(size, 2)}MiB")
+        return
 
 
 def humanbytes(size: int):

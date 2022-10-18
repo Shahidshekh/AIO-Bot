@@ -15,10 +15,8 @@ import asyncio
 from bot.utils.ytdl import Youtube_dl
 from bot import ytdlurls, filenames
 from re import split as re_split
-import asyncio
-from hachoir.metadata import extractMetadata
-from hachoir.parser import createParser
-from PIL import Image
+from bot.modules.uploader import upload_video
+
 custom_name = ""
  
 
@@ -81,9 +79,8 @@ async def cb(app, update: CallbackQuery):
             return
         await app.answer_callback_query(update.id, text="alright", show_alert=False)
         msg = await message.edit("Trying To Upload")
-        p_msg = await msg.reply("uploading")
         await msg.delete()
-        await upload_dir(directory, p_msg, thumbnail)
+        await upload_dir(directory, msg, thumbnail)
         await asyncio.sleep(3)
         await message.reply("Uploaded Successfully!")
         try:
@@ -194,6 +191,7 @@ async def upload_dir(directory, message, thumbnail=None):
     directory_contents = os.listdir(directory)
     directory_contents.sort()
     start = time.time()
+    user_id = message.reply_to_message.from_user.id
     msg = await message.edit("**Uploading.....**")
 
     for file in directory_contents:
@@ -201,9 +199,10 @@ async def upload_dir(directory, message, thumbnail=None):
         file_loc = f"{directory}{basename}"
         prog = Progress(message, basename, start)
         try:
-            await upload(
+            await upload_video(
                 local_file_name=file_loc,
                 message=msg,
+                user_id=user_id,
                 thumb = thumbnail,
                 progress=prog.up_progress
             )
@@ -212,33 +211,6 @@ async def upload_dir(directory, message, thumbnail=None):
             await asyncio.sleep(fd.value)
     LOGGER.info("DOne")
     await msg.delete()
-
-
-
-async def upload(local_file_name, message,thumb, progress):
-    chat = message.chat.id
-    file_name = os.path.basename(local_file_name)
-    stats = os.stat(local_file_name)
-    size = round((stats.st_size / (1024 * 1024)), 2)
-    LOGGER.info("yeah")
-    if not size < 1950.00:
-        LOGGER.info("here")
-        await message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {size}MiB")
-        return
-    else:
-        try:
-            if local_file_name.upper().endswith(("MKV", "MP4", "WEBM", "FLV", "3GP", "AVI", "MOV", "OGG", "WMV", "M4V", "TS", "MPG", "MTS", "M2TS")):
-                LOGGER.info("may work now")
-                await upload_video(message, progress, local_file_name)
-
-            else:
-                await message.reply_document(document=local_file_name, thumb=thumb, caption=f"<code>{file_name}</code>", disable_notification=True, progress=progress)
-
-        except FloodWait as fk:
-            await asyncio.sleep(fk.value)
-        except Exception as e:
-            LOGGER.info(e)
-        return
 
 
 
