@@ -78,7 +78,9 @@ async def cb(app, update: CallbackQuery):
             await app.answer_callback_query(update.id, text="Not Urs 😑", show_alert=True)
             return
         await app.answer_callback_query(update.id, text="alright", show_alert=False)
-        msg = await message.edit("Trying To Upload")
+        mg = message.reply_to_message
+        message.delete()
+        msg = await mg.reply("Trying to Upload...", quote=True)
         await upload_dir(directory, msg, thumbnail)
         await asyncio.sleep(3)
         await message.reply("Uploaded Successfully!")
