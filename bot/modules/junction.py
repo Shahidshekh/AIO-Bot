@@ -105,7 +105,6 @@ async def incoming_func(app, message):
             LOGGER.info("Cleaning...")
             try:
                 rmtree(download_location)
-                rmtree(ext_location)
             except Exception as e:
                 LOGGER.info(e)
 
