@@ -164,7 +164,7 @@ async def cb(app, update: CallbackQuery):
         LOGGER.info(own)
         LOGGER.info(user_id)
         if user_id != own:
-            app.answer_callback_query(update.id, text="Not Urs 😑", show_alert=True)
+            await app.answer_callback_query(update.id, text="Not Urs 😑", show_alert=True)
             return
         mode = await get_up_mode(user_id)
         await up_mode(user_id, True if not mode else False)
