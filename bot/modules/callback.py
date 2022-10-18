@@ -79,7 +79,7 @@ async def cb(app, update: CallbackQuery):
             return
         await app.answer_callback_query(update.id, text="alright", show_alert=False)
         mg = message.reply_to_message
-        message.delete()
+        await message.delete()
         msg = await mg.reply("Trying to Upload...", quote=True)
         await upload_dir(directory, msg, thumbnail, user_id)
         await asyncio.sleep(3)
@@ -87,11 +87,9 @@ async def cb(app, update: CallbackQuery):
         clean_all(directory)
 
     elif cb_data.startswith("rename"):
-        LOGGER.info("here")
         if user_id != update.message.reply_to_message.from_user.id:
             await app.answer_callback_query(update.id, text="Not Urs 😑", show_alert=True)
             return
-        LOGGER.info("here")
         await app.answer_callback_query(update.id, text="ok", show_alert=False)
         fi = cb_data.split(" ")
         file_num = fi[1]
@@ -205,7 +203,6 @@ async def upload_dir(directory, message, user_id,thumbnail=None):
             await asyncio.sleep(3)
         except FloodWait as fd:
             await asyncio.sleep(fd.value)
-    LOGGER.info("DOne")
     await msg.delete()
 
 
