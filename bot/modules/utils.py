@@ -38,7 +38,9 @@ async def files_keyboard(directory, message):
         if os.path.isfile(f"{directory}{fi}"):
             fcontents.append(fi)
     fcontents.sort()
+    count = 0
     while True:
+        count+=1
         try:
             content = os.listdir(directory)
             contents = []
@@ -62,7 +64,7 @@ async def files_keyboard(directory, message):
         fi_butt.append([InlineKeyboardButton(text="Upload", callback_data="upload")])
         files = InlineKeyboardMarkup(fi_butt)
         try:
-            if contents != fcontents:
+            if contents != fcontents or count==1:
                 await message.edit("Select and Rename files you want -", reply_markup=files)
         except MessageNotModified:
             await asyncio.sleep(1)
