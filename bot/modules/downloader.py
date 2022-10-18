@@ -12,6 +12,7 @@ from shutil import rmtree
 from bot import filenames
 from pyrogram.errors import FloodWait
 from bot.modules.uploader import upload_video
+from threading import Thread
 
 
 class Downloader:
@@ -73,7 +74,7 @@ class Downloader:
                 await em.edit("Found Custom Name! Wanna Use It?", reply_markup=name_but)
                 await asyncio.sleep(10)
             else:
-                await files_keyboard(out_path, em)
+                Thread(target=key_loop, args=([out_path, em])]).start()
         else:
             await self.msg.reply_text("File Corrupted", quote=True)
 
@@ -123,3 +124,10 @@ def humanbytes(size: int):
         size /= power
         n += 1
     return f"{round(size, 2)} {dic_powern[n]}B"
+
+
+def key_loop(out, msg):
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(files_keyboard(out, msg))
+        loop.close()
