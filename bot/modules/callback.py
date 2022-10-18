@@ -161,6 +161,8 @@ async def cb(app, update: CallbackQuery):
 
     elif cb_data == "mode":
         own = update.message.reply_to_message.from_user.id
+        LOGGER.info(own)
+        LOGGER.info(user_id)
         if user_id != own:
             app.answer_callback_query(update.id, text="Not Urs 😑", show_alert=True)
             return
