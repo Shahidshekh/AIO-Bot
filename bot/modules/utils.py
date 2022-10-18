@@ -70,6 +70,8 @@ async def files_keyboard(directory, message):
             return
         except FloodWait as fd:
             await asyncio.sleep(fd.value)
+        except Exception as e:
+            LOGGER.error(e)
 
 async def log(app, message):
     await message.reply_document(

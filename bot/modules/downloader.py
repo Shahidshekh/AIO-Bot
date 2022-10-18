@@ -59,7 +59,6 @@ class Downloader:
             ext = Extract()
             await ext.extract(file_path, out_path)
             await em.edit("Extracted!")
-            clean_all(file_path)
             LOGGER.info(f"file name : {self.name}")
             await em.edit("**Waiting...**")
             butt = [
