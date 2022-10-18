@@ -34,9 +34,9 @@ class Extract:
 async def files_keyboard(directory, message):
     fcontent = os.listdir(directory)
     fcontents = []
-    for fi in content:
+    for fi in fcontent:
         if os.path.isfile(f"{directory}{fi}"):
-            contents.append(fi)
+            fcontents.append(fi)
     fcontents.sort()
     while True:
         try:
@@ -49,6 +49,8 @@ async def files_keyboard(directory, message):
             fi_butt = []
         except FileNotFoundError:
             return
+        except Exception as e:
+            LOGGER.info(e)
 
         for i, file in enumerate(contents, 1):
             fi_butt.append(
