@@ -13,6 +13,7 @@ async def upload_video(message, local_file_name, user_id, yt_thumb = None, thumb
     prog = Progress(message, local_file_name, st)
     progress = prog.mul_progress if mul else prog.up_progress
     mode = await get_up_mode(user_id)
+    LOGGER.info(mode)
     if mode:
         await upload(
             local_file_name=local_file_name,
