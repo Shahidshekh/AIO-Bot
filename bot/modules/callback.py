@@ -187,7 +187,7 @@ async def cb(app, update: CallbackQuery):
 
 
 
-async def upload_dir(directory, message, thumbnail=None, user_id):
+async def upload_dir(directory, message, user_id,thumbnail=None):
     directory_contents = os.listdir(directory)
     directory_contents.sort()
     msg = await message.edit("**Uploading.....**")
