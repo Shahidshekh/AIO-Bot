@@ -9,7 +9,6 @@ import time
 
 async def upload_video(message, progress, local_file_name, user_id, yt_thumb = None, thumb = None):
     mode = await get_up_mode(user_id)
-    LOGGER.info(mode)
     if mode:
         await upload(
             local_file_name=local_file_name,
