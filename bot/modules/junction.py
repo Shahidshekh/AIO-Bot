@@ -102,6 +102,12 @@ async def incoming_func(app, message):
                 await message.reply_text("Doesn't seem to be a <b>Download Source</b>", quote=True)
 
             remove_user(user_id)
+            LOGGER.info("Cleaning...")
+            try:
+                rmtree(download_location)
+                rmtree(ext_location)
+            except Exception as e:
+                LOGGER.info(e)
 
         elif not res:
             await message.reply("<b>Ongoing Process Found!</b> Please wait until it's complete", quote=True)
