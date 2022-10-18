@@ -89,9 +89,11 @@ async def cb(app, update: CallbackQuery):
             pass
 
     elif cb_data.startswith("rename"):
+        LOGGER.info("here")
         if user_id != update.message.reply_to_message.from_user.id:
             await app.answer_callback_query(update.id, text="Not Urs 😑", show_alert=True)
             return
+        LOGGER.info("here")
         await app.answer_callback_query(update.id, text="ok", show_alert=False)
         fi = cb_data.split(" ")
         file_num = fi[1]
