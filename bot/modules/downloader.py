@@ -90,7 +90,7 @@ def clean_all(dl_loc):
 async def compress(local_file, out, message, user):
     filename = os.path.basename(local_file)
     filenames.update({f"{user}" : f"{filename}"})
-    cmd = f"ffmpeg -i '{local_file}' -vcodec libx265 -crf 28 '{out}'"
+    cmd = f"ffmpeg -i '{local_file}' -preset ultrafast -vcodec libx264 -crf 24 '{out}'"
     reply_markup = InlineKeyboardMarkup(
         [
             [
