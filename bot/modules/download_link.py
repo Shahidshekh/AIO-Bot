@@ -26,9 +26,12 @@ async def aria_start():
     start, aria = await command.communicate()
     LOGGER.info(f"start - {start.decode()}")
     LOGGER.error(f"error - {aria.decode()}")
-    aria2 = aria2p.API(
-        aria2p.Client(host="http://localhost", port=8080, secret="")
-    )
+    try:
+        aria2 = aria2p.API(
+            aria2p.Client(host="http://localhost", port=8080, secret="")
+        )
+    except Exception as e:
+        LOGGER.error(e)
     return aria2
 
 
