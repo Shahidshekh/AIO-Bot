@@ -126,7 +126,7 @@ def add_url(aria_instance, url, path):
             LOGGER.info(e)
 
     try:
-        download = aria_instance.add_uris(uris, {'dir': '.downloads/'})
+        download = aria_instance.add_uris(uris, {'dir': path})
     except Exception as e:
         return (
             False,
