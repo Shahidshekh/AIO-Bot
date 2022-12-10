@@ -39,6 +39,13 @@ async def progress_aria(aria2, gid, event, user):
     cancel_butt = [[InlineKeyboardButton(text="cancel", callback_data=f"cancel {gid}")]]
     cancel = InlineKeyboardMarkup(cancel_butt)
     count = 0
+    try:
+        l = aria2.downloads()
+        LOGGER.info(l)
+        return
+    except Exception as exx:
+        LOGGER.error(exx)
+        return
     while True:
         count += 1
         LOGGER.info(f"Turn = {count}")
