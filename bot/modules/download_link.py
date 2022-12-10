@@ -47,6 +47,7 @@ async def progress_aria(aria2, gid, event, user):
 
         try:
             file = aria2.get_download(gid)
+            LOGGER.info(file)
         except Exception as ex:
             LOGGER.error(ex)
             return
