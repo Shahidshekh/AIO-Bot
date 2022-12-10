@@ -39,7 +39,10 @@ async def progress_aria(aria2, gid, event, user):
     cancel_butt = [[InlineKeyboardButton(text="cancel", callback_data=f"cancel {gid}")]]
     cancel = InlineKeyboardMarkup(cancel_butt)
     LOGGER.info("here")
-    file = aria2.get_download(gid)
+    try:
+        file = aria2.get_download(gid)
+    except Exception as ex:
+        LOGGER.error(ex)
     while True:
         try:
             complete = file.is_complete
