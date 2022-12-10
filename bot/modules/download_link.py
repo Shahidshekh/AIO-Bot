@@ -25,7 +25,7 @@ async def aria_start():
     )
     start, aria = await command.communicate()
     aria2 = aria2p.API(
-        aria2p.Client(host="http://localhost", port=6800, secret="")
+        aria2p.Client(host="http://localhost", port=8080, secret="")
     )
     return aria2
 
