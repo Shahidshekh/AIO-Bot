@@ -40,7 +40,7 @@ async def progress_aria(aria2, gid, event, user):
     cancel = InlineKeyboardMarkup(cancel_butt)
     LOGGER.info("here")
     try:
-        ins = aria_start()
+        ins = await aria_start()
         file = ins.get_download(gid)
     except Exception as ex:
         LOGGER.error(ex)
