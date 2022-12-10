@@ -28,7 +28,7 @@ async def aria_start():
     LOGGER.error(f"error - {aria.decode()}")
     try:
         aria2 = aria2p.API(
-            aria2p.Client(host="http://localhost", port=8080, secret="")
+            aria2p.Client(host="http://localhost", port=6800, secret="")
         )
     except Exception as e:
         LOGGER.error(e)
