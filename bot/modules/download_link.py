@@ -49,7 +49,8 @@ async def progress_aria(aria2, gid, event, user):
         LOGGER.info(f"Turn = {count}")
         try:
             complete = file.is_complete
-            LOGGER.info(f"status - {complete}")
+            status = file.status
+            LOGGER.info(f"status - {status}")
             if not complete:
                 if not file.error_message:
                     if file.has_failed:
