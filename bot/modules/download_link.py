@@ -41,24 +41,13 @@ async def progress_aria(aria2, gid, event, user):
     count = 0
     LOGGER.info(f"GID is {gid}")
     try:
-        l = aria2.get_downloads(str(gid))
+        l = aria2.get_downloads([gid])
         LOGGER.info(l)
-        return
+        file = l[0]
     except Exception as exx:
         LOGGER.error(exx)
         return
     while True:
-        count += 1
-        LOGGER.info(f"Turn = {count}")
-        if count == 15:
-            break
-
-        try:
-            file = aria2.get_download(gid)
-            LOGGER.info(file)
-        except Exception as ex:
-            LOGGER.error(ex)
-            return
         try:
             complete = file.is_complete
             status = file.status
