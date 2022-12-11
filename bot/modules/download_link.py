@@ -77,6 +77,7 @@ async def progress_aria(aria2, gid, event, user):
                     eta = file.eta_string()
                     smsg = f"**Downloading** \n**Name**:<code>{file.name}</code>\n\n{progress}\n\n**Done** : __{prog}_"\
                            f"_of __{total}__\n**Speed** : __{speed}__\n**ETA** : __{eta}__ "
+                    LOGGER.info(f"{prog} of {total}")
                     try:
                         await event.edit(smsg, reply_markup=cancel)
                         await asyncio.sleep(5)
