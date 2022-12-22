@@ -41,7 +41,7 @@ async def progress_aria(aria2, gid, event, user):
     count = 0
     LOGGER.info(f"GID is {gid}")
     try:
-        l = aria2.get_downloads([gid])
+        l = aria2.get_download(gid)
         LOGGER.info(l)
         file = l[0]
     except Exception as exx:
