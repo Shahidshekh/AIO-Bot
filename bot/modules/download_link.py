@@ -38,17 +38,9 @@ async def aria_start():
 async def progress_aria(aria2, gid, event, user):
     cancel_butt = [[InlineKeyboardButton(text="cancel", callback_data=f"cancel {gid}")]]
     cancel = InlineKeyboardMarkup(cancel_butt)
-    count = 0
-    LOGGER.info(f"GID is {gid}")
-    try:
-        file = aria2.get_download(gid)
-        LOGGER.info(file)
-
-    except Exception as exx:
-        LOGGER.error(exx)
-        return
     while True:
         try:
+            file= aria2.get_download(gid)
             complete = file.is_complete
             if not complete:
                 if not file.error_message:
@@ -75,7 +67,6 @@ async def progress_aria(aria2, gid, event, user):
                     eta = file.eta_string()
                     smsg = f"**Downloading** \n**Name**:<code>{file.name}</code>\n\n{progress}\n\n**Done** : __{prog}_"\
                            f"_of __{total}__\n**Speed** : __{speed}__\n**ETA** : __{eta}__ "
-                    LOGGER.info(f"{prog} of {total}")
                     try:
                         await event.edit(smsg, reply_markup=cancel)
                         await asyncio.sleep(5)
