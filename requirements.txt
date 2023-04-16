@@ -15,3 +15,6 @@ requests
 psycopg2-binary
 pymongo
 motor
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
