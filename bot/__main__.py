@@ -11,15 +11,15 @@ from bot.modules.utils import log, restart, db_users_count, settings
 from pyrogram import Client
 import os
 
-
 if __name__ == "__main__":
     app = Client(
-    "hello",
-    api_id=11873433,
-    api_hash="96abaf0d59cd1f5482bdc93ba6030424",
-    bot_token="5553254288:AAHvhjrbImGLZNQlHgb_TEG43Fuf3UfD47g"
+        "hello",
+        api_id=11873433,
+        api_hash="96abaf0d59cd1f5482bdc93ba6030424",
+        bot_token="5553254288:AAHvhjrbImGLZNQlHgb_TEG43Fuf3UfD47g"
     )
     app.start()
+
 
 async def startr():
     try:
@@ -29,6 +29,7 @@ async def startr():
             os.remove("/usr/src/app/.restartmg")
     except Exception as e:
         LOGGER.error(e)
+
 
 @app.on_message(filters.command('start'))
 async def start_command(app, message):
@@ -48,7 +49,8 @@ async def start_command(app, message):
                              reply_markup=InlineKeyboardMarkup(help_button)
                              )
 
-###############################################################################################################################
+
+# ##############################################################################################################################
 leech_handler = MessageHandler(
     incoming_func,
     filters=filters.command(['leech', 'extract', 'compress'])
