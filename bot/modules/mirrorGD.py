@@ -29,9 +29,9 @@ async def upload_gd(file_path, message):
     file_name = os.path.basename(file_path)
     try:
         gd_service = build("drive", "v3", credentials=creds)
-        LOGGER.info("Generating service!!!!!!!!!!")
         file_meta = {'name': file_name, 'parents': ["0ALsEc-F8sH1NUk9PVA"]}
         media = googleapiclient.http.MediaFileUpload(file_path, resumable=True)
+        LOGGER.info("Generating service!!!!!!!!!!")
         file = gd_service.files().create(
             supportsTeamDrives=True,
             body=file_meta,
