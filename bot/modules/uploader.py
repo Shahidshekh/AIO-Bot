@@ -1,6 +1,6 @@
 import requests
 from pyrogram.errors import FloodWait
-from downloader import clean_all
+from bot.modules.downloader import clean_all
 from bot.modules.logger import LOGGER
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
