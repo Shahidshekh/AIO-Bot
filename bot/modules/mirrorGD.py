@@ -25,9 +25,10 @@ if not creds or not creds.valid:
         pickle.dump(creds, token)
 
 
-def upload_gd(file_path, message):
+async def upload_gd(file_path, message):
     file_name = os.path.basename(file_path)
     try:
+        LOGGER.info("Generating service!!!!!!!!!!")
         gd_service = build("drive", "v3", credentials=creds)
         file_meta = {'name': file_name, 'parents': ["0ACb9rPBcPZC1Uk9PVA"]}
         media = googleapiclient.http.MediaFileUpload(file_path, resumable=True)
@@ -38,6 +39,7 @@ def upload_gd(file_path, message):
         ).execute()
 
         response = None
+        LOGGER.info("Going ON Loop!!!!!!!!!!!!")
         while response is None:
             status, response = file.next_chunk()
             if status:
@@ -45,7 +47,7 @@ def upload_gd(file_path, message):
                 message.edit(f'Progress : {progress}')
                 time.sleep(3.0)
 
-        message.edit(f"Uploaded Successfully!\n\n**File Name** : {file_name}"
+        await message.edit(f"Uploaded Successfully!\n\n**File Name** : {file_name}"
                      f"**Team Drive** : 0ACb9rPBcPZC1Uk9PVA")
 
     except HttpError as error:
