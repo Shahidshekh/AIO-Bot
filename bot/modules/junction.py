@@ -7,6 +7,7 @@ from bot.modules.uploader import upload_video
 from bot.modules.dl_progress import Progress
 from bot.modules.logger import LOGGER
 from bot.modules.callback import name
+from bot.modules.mirrorGD import upload_gd
 import os
 from bot import authorized_chats
 
@@ -26,9 +27,10 @@ async def incoming_func(app, message):
     download = Downloader(app, message, custom_name)
     reso = search(authorized_chats, str(message.chat.id))
     if not reso:
-        await message.reply(text="I'm not familiar to this chat...\nPlease Contact @the_fourth_minato for authorization", quote=True)
+        await message.reply(
+            text="I'm not familiar to this chat...\nPlease Contact @the_fourth_minato for authorization", quote=True)
         return
-         
+
     if mess:
         res = user_validation(user_id, message)
         if res:
@@ -38,6 +40,11 @@ async def incoming_func(app, message):
                 if command.lower().endswith('extract'):
                     LOGGER.info("Extracting...")
                     await download.extractit(file_name, ext_location)
+
+                elif command.lower().endswith('mirror'):
+                    mes = await mess.reply('Uploading to GDrive........')
+                    upload_gd(file_name, mes)
+
                 elif command.lower().endswith('compress'):
                     try:
                         os.makedirs(ext_location)
@@ -72,6 +79,11 @@ async def incoming_func(app, message):
                 else:
                     if command.lower().endswith('extract'):
                         await download.extractit(file_name, ext_location)
+
+                    elif command.lower().endswith('mirror'):
+                        mes = await mess.reply('Uploading to GDrive........')
+                        upload_gd(file_name, mes)
+
                     elif command.lower().endswith('compress'):
                         try:
                             os.makedirs(ext_location)
@@ -84,7 +96,7 @@ async def incoming_func(app, message):
                         if new_name != "":
                             os.rename(file_name, f"{download_location}{new_name}")
                             file_name = f"{download_location}{new_name}"
-                                      
+
                         msg = await message.reply("**Trying to upload...**", quote=True)
                         await asyncio.sleep(3)
                         try:
@@ -97,7 +109,7 @@ async def incoming_func(app, message):
                             await message.reply("Uploaded Successfully!", quote=True)
                         except Exception as e:
                             LOGGER.error(e)
-                
+
             else:
                 await message.reply_text("Doesn't seem to be a <b>Download Source</b>", quote=True)
 
@@ -120,13 +132,11 @@ async def incoming_func(app, message):
         return
 
 
-
-
 async def set_name(app: client, message):
     msg = await app.send_message(message.chat.id, "Send me a Custom File Name\n\n**REMEMBER** The custom name "
-                                                       "must end with a valid extension and must have character `*` "
-                                                       "in it( which will be replaced as File Number(like 01 for the "
-                                                       "first file ))\n\nExample : `Demon Slayer Ep*.mkv`")
+                                                  "must end with a valid extension and must have character `*` "
+                                                  "in it( which will be replaced as File Number(like 01 for the "
+                                                  "first file ))\n\nExample : `Demon Slayer Ep*.mkv`")
     mess = await app.listen(message.chat.id)
     global custom_name
     custom_name = mess.text
