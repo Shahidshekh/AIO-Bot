@@ -8,7 +8,7 @@ user = db['users']
 
 
 async def add_user(user_id):
-    res = check_user(user_id)
+    res = await check_user(user_id)
     LOGGER.info(f"check results {res}")
     if not res:
         await user.insert_one({"_id": user_id, "vid": False})
@@ -24,7 +24,7 @@ async def total_users():
 
 
 async def users_list():
-    return (user["user_id"] async for user in user_db.find({}))
+    return (userl["user_id"] async for userl in user.find({}))
 
 
 async def up_mode(user_id, mode):
