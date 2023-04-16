@@ -33,6 +33,7 @@ async def upload_gd(file_path, message):
         file_meta = {'name': file_name, 'parents': ["0ACb9rPBcPZC1Uk9PVA"]}
         media = googleapiclient.http.MediaFileUpload(file_path, resumable=True)
         file = gd_service.files().create(
+            supportsTeamDrives=True,
             body=file_meta,
             media_body=media,
             fields="id"
