@@ -1,12 +1,13 @@
 import asyncio
-import os
-import aria2p
-import sys
-from pyrogram.errors import FloodWait, MessageNotModified
-from time import time, sleep
-from bot.modules.logger import LOGGER
 import math
+import os
+import sys
+
+import aria2p
+from pyrogram.errors import FloodWait, MessageNotModified
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
+from bot.modules.logger import LOGGER
 
 sys.setrecursionlimit(10 ** 4)
 
