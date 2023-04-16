@@ -1,6 +1,5 @@
 import requests
 from pyrogram.errors import FloodWait
-from bot.modules.downloader import clean_all
 from bot.modules.logger import LOGGER
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
@@ -151,7 +150,7 @@ async def upload(local_file_name, message, thumbnail, progress):
                 disable_notification=True,
                 progress=progress
             )
-            clean_all(self.download_location)
+
 
         except Exception as e:
             LOGGER.error(e)
