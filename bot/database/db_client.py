@@ -1,7 +1,7 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from bot.modules.logger import LOGGER
 
-mongodb = AsyncIOMotorClient("mongodb+srv://minato:minato5647@cluster0.mukmldp.mongodb.net/?retryWrites=true&w=majority")
+mongodb = AsyncIOMotorClient("mongodb+srv://minato:minato0987@cluster2.6w89fyn.mongodb.net/?retryWrites=true&w=majority")
 db = mongodb['aio_bot']
 user = db['users']
 
