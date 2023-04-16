@@ -9,6 +9,7 @@ user = db['users']
 
 async def add_user(user_id):
     res = check_user(user_id)
+    LOGGER.info(f"check results {res}")
     if not res:
         await user.insert_one({"_id": user_id, "vid": False})
 
