@@ -53,4 +53,4 @@ async def upload_gd(file_path, message):
 
     except HttpError as error:
         LOGGER.error("Error!!!!!!!!!!!")
-        message.edit(f"**Error** : {error}")
+        await message.edit(f"**Error** : {error}")
