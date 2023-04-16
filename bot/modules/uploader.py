@@ -1,3 +1,6 @@
+import requests
+from pyrogram.errors import FloodWait
+from downloader import clean_all
 from bot.modules.logger import LOGGER
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
@@ -8,7 +11,8 @@ import asyncio
 import os
 import time
 
-async def upload_video(message, local_file_name, user_id, yt_thumb = None, thumb = None, mul = False):
+
+async def upload_video(message, local_file_name, user_id, yt_thumb=None, thumb=None, mul=False):
     st = time.time()
     prog = Progress(message, local_file_name, st)
     progress = prog.mul_progress if mul else prog.up_progress
@@ -30,7 +34,8 @@ async def upload_video(message, local_file_name, user_id, yt_thumb = None, thumb
         return
     caption_str = f"`{os.path.basename(local_file_name)}`"
     thumb = None
-    if local_file_name.upper().endswith(("MKV", "MP4", "WEBM", "FLV", "3GP", "AVI", "MOV", "OGG", "WMV", "M4V", "TS", "MPG", "MTS", "M2TS")):
+    if local_file_name.upper().endswith(
+            ("MKV", "MP4", "WEBM", "FLV", "3GP", "AVI", "MOV", "OGG", "WMV", "M4V", "TS", "MPG", "MTS", "M2TS")):
         duration = 0
         try:
             metadata = extractMetadata(createParser(local_file_name))
@@ -79,15 +84,15 @@ async def upload_video(message, local_file_name, user_id, yt_thumb = None, thumb
             thumb = thumb_image_path
 
         sent_message = await message.reply_video(
-                video=local_file_name,
-                caption=caption_str,
-                duration=duration,
-                width=width,
-                height=height,
-                thumb=thumb,
-                supports_streaming=True,
-                disable_notification=True,
-                progress=progress
+            video=local_file_name,
+            caption=caption_str,
+            duration=duration,
+            width=width,
+            height=height,
+            thumb=thumb,
+            supports_streaming=True,
+            disable_notification=True,
+            progress=progress
         )
     else:
         await upload(
@@ -101,7 +106,8 @@ async def upload_video(message, local_file_name, user_id, yt_thumb = None, thumb
 async def take_screen_shot(video_file, output_directory, ttl):
     # https://stackoverflow.com/a/13891070/4723940
     out_put_file_name = os.path.join(output_directory, str(time.time()) + ".jpg")
-    if video_file.upper().endswith(("MKV", "MP4", "WEBM", "AVI", "MOV", "OGG", "WMV", "M4V", "TS", "MPG", "MTS", "M2TS", "3GP")):
+    if video_file.upper().endswith(
+            ("MKV", "MP4", "WEBM", "AVI", "MOV", "OGG", "WMV", "M4V", "TS", "MPG", "MTS", "M2TS", "3GP")):
         file_genertor_command = [
             "ffmpeg",
             "-ss",
