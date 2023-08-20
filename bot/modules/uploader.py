@@ -9,6 +9,8 @@ from PIL import Image
 import asyncio
 import os
 import time
+import re
+import subprocess
 
 
 async def upload_video(message, local_file_name, user_id, yt_thumb=None, thumb=None, mul=False):
@@ -160,6 +162,78 @@ async def upload(local_file_name, message, thumbnail, progress):
     else:
         await message.edit(f"Can't Upload :( Due to Telegram Limitation\n\n**Size :** {round(size, 2)}MiB")
         return
+
+
+async def upload_to_gdrive(file_upload, message, g_id):
+    await asyncio.sleep(3)
+    del_it = await message.edit_text(
+        f"<a href='tg://user?id={g_id}'>🔊</a> Now Uploading to ☁️ Cloud!!!"
+    )
+   # if not os.path.exists("rclone.conf"):
+    #    with open("rclone.conf", "w+", newline="\n", encoding="utf-8") as fole:
+   #         fole.write(f"{RCLONE_CONFIG}")
+    if os.path.exists("rclone.conf"):
+        with open("rclone.conf", "r+") as file:
+            con = file.read()
+            gUP = re.findall("\[(.*)\]", con)[0]
+            LOGGER.info(gUP)
+    destination = f"{"AIO-Bot"}"
+    file_upload = str(Path(file_upload).resolve())
+    LOGGER.info(file_upload)
+    if os.path.isfile(file_upload):
+        g_au = [
+            "rclone",
+            "copy",
+            "--config=rclone.conf",
+            f"{file_upload}",
+            f"{gUP}:{destination}",
+            "-v",
+        ]
+        LOGGER.info(g_au)
+        tmp = await asyncio.create_subprocess_exec(
+            *g_au, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+        )
+        pro, cess = await tmp.communicate()
+        LOGGER.info(pro.decode("utf-8"))
+        LOGGER.info(cess.decode("utf-8"))
+        gk_file = re.escape(os.path.basename(file_upload))
+        LOGGER.info(gk_file)
+        with open("filter.txt", "w+", encoding="utf-8") as filter:
+            print(f"+ {gk_file}\n- *", file=filter)
+
+        t_a_m = [
+            "rclone",
+            "lsf",
+            "--config=rclone.conf",
+            "-F",
+            "i",
+            "--filter-from=filter.txt",
+            "--files-only",
+            f"{gUP}:{destination}",
+        ]
+        gau_tam = await asyncio.create_subprocess_exec(
+            *t_a_m, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+        )
+        # os.remove("filter.txt")
+        gau, tam = await gau_tam.communicate()
+        gautam = gau.decode().strip()
+        LOGGER.info(gau.decode())
+        LOGGER.info(tam.decode())
+        # os.remove("filter.txt")
+        gauti = f"https://drive.google.com/file/d/{gautam}/view?usp=drivesdk"
+        gjay = size(os.path.getsize(file_upload))
+        button = []
+        button.append(
+            [pyrogram.InlineKeyboardButton(text="☁️ CloudUrl ☁️", url=f"{gauti}")]
+        )
+        button_markup = pyrogram.InlineKeyboardMarkup(button)
+        await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
+        await messa_ge.reply_text(
+            f"🤖: Uploaded successfully `{os.path.basename(file_upload)}` <a href='tg://user?id={g_id}'>🤒</a>\n📀 Size: {gjay}",
+            reply_markup=button_markup,
+        )
+        os.remove(file_upload)
+        await del_it.delete()
 
 
 def humanbytes(size: int):
