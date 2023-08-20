@@ -43,8 +43,8 @@ async def incoming_func(app, message):
 
                 elif command.lower().endswith('mirror'):
                     mes = await mess.reply('Uploading to GDrive........')
-                    #await upload_gd(file_name, mes)
-                    await upload_to_gdrive(file_name, mes, user_id)
+                    await upload_gd(file_name, mes)
+                    #await upload_to_gdrive(file_name, mes, user_id)
 
                 elif command.lower().endswith('compress'):
                     try:
