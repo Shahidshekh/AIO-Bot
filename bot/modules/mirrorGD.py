@@ -36,7 +36,7 @@ async def upload_gd(file_path, message):
         #0ACb9rPBcPZC1Uk9PVA
         #10u3nIOLHsVxg34h5YX0AlIDB0T1VIwrg
         await asyncio.sleep(10)
-        file_meta = {'name': file_name, 'parents': [""]}
+        file_meta = {'name': file_name, 'parents': ["1iA4EedEkB2MX9TI3gJ7b-L3xk8jIfjwo"]}
         media = googleapiclient.http.MediaFileUpload(file_path, resumable=True)
         
         file = gd_service.files().create(
