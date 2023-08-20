@@ -2,6 +2,7 @@ import os
 import pickle
 import time
 import googleapiclient.http
+import asyncio
 
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -29,8 +30,10 @@ async def upload_gd(file_path, message):
     file_name = os.path.basename(file_path)
     try:
         LOGGER.info("Generating service!!!!!!!!!!")
+        LOGGER.info(f"creds - {creds}")
         gd_service = build("drive", "v3", credentials=creds)
         #0ALsEc-F8sH1NUk9PVA 
+        asyncio.sleep(10)
         file_meta = {'name': file_name, 'parents': ["0ACb9rPBcPZC1Uk9PVA"]}
         media = googleapiclient.http.MediaFileUpload(file_path, resumable=True)
         
