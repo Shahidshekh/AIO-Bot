@@ -194,8 +194,8 @@ async def upload_to_gdrive(file_upload, message, g_id):
             *g_au, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
         )
         pro, cess = await tmp.communicate()
-        LOGGER.info(pro.decode("utf-8"))
-        LOGGER.info(cess.decode("utf-8"))
+        LOGGER.info(pro.decode())
+        LOGGER.info(cess.decode())
         gk_file = re.escape(os.path.basename(file_upload))
         LOGGER.info(gk_file)
         with open("filter.txt", "w+", encoding="utf-8") as filter:
