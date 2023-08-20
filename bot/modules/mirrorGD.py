@@ -30,11 +30,7 @@ async def upload_gd(file_path, message):
     file_name = os.path.basename(file_path)
     try:
         LOGGER.info("Generating service!!!!!!!!!!")
-        LOGGER.info(f"creds - {creds}")
         gd_service = build("drive", "v3", credentials=creds)
-        results = gd_service.drives().list(pageSize=10).execute()
-        shared_drive_id = results['drives'][0]['id']
-        LOGGER.info(shared_drive_id)
 
         #0ALsEc-F8sH1NUk9PVA 
         #0ACb9rPBcPZC1Uk9PVA
@@ -48,7 +44,6 @@ async def upload_gd(file_path, message):
             supportsAllDrives=True,
             body=file_meta,
             media_body=media,
-            resumable=True,
             fields="id"
         ).execute()
 
