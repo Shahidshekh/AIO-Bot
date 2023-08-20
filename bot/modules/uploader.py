@@ -6,6 +6,7 @@ from hachoir.parser import createParser
 from bot.database.db_client import get_up_mode
 from bot.modules.dl_progress import Progress
 from PIL import Image
+from pathlib import Path
 import asyncio
 import os
 import time
