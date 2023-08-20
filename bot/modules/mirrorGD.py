@@ -48,6 +48,7 @@ async def upload_gd(file_path, message):
             supportsAllDrives=True,
             body=file_meta,
             media_body=media,
+            resumable=True,
             fields="id"
         ).execute()
 
