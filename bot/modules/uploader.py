@@ -7,6 +7,7 @@ from bot.database.db_client import get_up_mode
 from bot.modules.dl_progress import Progress
 from PIL import Image
 from pathlib import Path
+import pyrogram
 import asyncio
 import os
 import time
