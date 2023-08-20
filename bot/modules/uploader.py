@@ -175,6 +175,7 @@ async def upload_to_gdrive(file_upload, message, g_id):
     if os.path.exists("rclone.conf"):
         with open("rclone.conf", "r+") as file:
             con = file.read()
+            LOGGER.info(con)
             gUP = re.findall("\[(.*)\]", con)
             LOGGER.info(gUP)
             return
