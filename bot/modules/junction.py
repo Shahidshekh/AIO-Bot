@@ -3,7 +3,7 @@ from shutil import rmtree
 from time import time
 from pyrogram import client
 from bot.modules.downloader import Downloader, compress
-from bot.modules.uploader import upload_video
+from bot.modules.uploader import upload_video, upload_to_gdrive
 from bot.modules.dl_progress import Progress
 from bot.modules.logger import LOGGER
 from bot.modules.callback import name
@@ -43,7 +43,8 @@ async def incoming_func(app, message):
 
                 elif command.lower().endswith('mirror'):
                     mes = await mess.reply('Uploading to GDrive........')
-                    await upload_gd(file_name, mes)
+                    #await upload_gd(file_name, mes)
+                    await upload_to_gdrive(file_name, mes, user_id)
 
                 elif command.lower().endswith('compress'):
                     try:
