@@ -177,7 +177,7 @@ async def upload_to_gdrive(file_upload, message, g_id):
             con = file.read()
             gUP = re.findall("\[(.*)\]", con)[0]
             LOGGER.info(gUP)
-    destination = f"{"AIO-Bot"}"
+    destination = "AIO-Bot"
     file_upload = str(Path(file_upload).resolve())
     LOGGER.info(file_upload)
     if os.path.isfile(file_upload):
