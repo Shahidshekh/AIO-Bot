@@ -175,10 +175,8 @@ async def upload_to_gdrive(file_upload, message, g_id):
     if os.path.exists("rclone.conf"):
         with open("rclone.conf", "r+") as file:
             con = file.read()
-            LOGGER.info(con)
-            gUP = re.findall("\[(.*)\]", con)
+            gUP = "Gdrive"
             LOGGER.info(gUP)
-            return
     destination = "AIO-Bot"
     file_upload = str(Path(file_upload).resolve())
     LOGGER.info(file_upload)
