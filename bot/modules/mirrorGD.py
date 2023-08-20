@@ -33,8 +33,9 @@ async def upload_gd(file_path, message):
         LOGGER.info(f"creds - {creds}")
         gd_service = build("drive", "v3", credentials=creds)
         #0ALsEc-F8sH1NUk9PVA 
+        #0ACb9rPBcPZC1Uk9PVA
         asyncio.sleep(10)
-        file_meta = {'name': file_name, 'parents': ["0ACb9rPBcPZC1Uk9PVA"]}
+        file_meta = {'name': file_name, 'parents': ["10u3nIOLHsVxg34h5YX0AlIDB0T1VIwrg"]}
         media = googleapiclient.http.MediaFileUpload(file_path, resumable=True)
         
         file = gd_service.files().create(
