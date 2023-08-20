@@ -228,7 +228,7 @@ async def upload_to_gdrive(file_upload, message, g_id):
         )
         button_markup = pyrogram.InlineKeyboardMarkup(button)
         await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
-        await messa_ge.reply_text(
+        await message.reply_text(
             f"🤖: Uploaded successfully `{os.path.basename(file_upload)}` <a href='tg://user?id={g_id}'>🤒</a>\n📀 Size: {gjay}",
             reply_markup=button_markup,
         )
