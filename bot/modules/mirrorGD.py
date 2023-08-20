@@ -28,11 +28,12 @@ if not creds or not creds.valid:
 async def upload_gd(file_path, message):
     file_name = os.path.basename(file_path)
     try:
+        LOGGER.info("Generating service!!!!!!!!!!")
         gd_service = build("drive", "v3", credentials=creds)
         #0ALsEc-F8sH1NUk9PVA 
         file_meta = {'name': file_name, 'parents': ["0ACb9rPBcPZC1Uk9PVA"]}
         media = googleapiclient.http.MediaFileUpload(file_path, resumable=True)
-        LOGGER.info("Generating service!!!!!!!!!!")
+        
         file = gd_service.files().create(
             supportsTeamDrives=True,
             body=file_meta,
@@ -55,3 +56,7 @@ async def upload_gd(file_path, message):
     except HttpError as error:
         LOGGER.error("Error!!!!!!!!!!!")
         await message.edit(f"**Error** : {error}")
+
+    except Exception as e:
+        LOGGER.error("lol")
+        await message.edit(f"**Error** : {e}")
